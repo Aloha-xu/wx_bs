@@ -84,8 +84,3 @@ A 增加发货时的订阅消息
 微信小程序：https://github.com/iamdarcy/hioshop-miniprogram  
 后台管理：https://github.com/iamdarcy/hioshop-admin  
 服务端： https://github.com/iamdarcy/hioshop-server  
-
-- 本项目会持续更新和维护，喜欢别忘了 Star，有问题可通过微信、QQ群联系我，谢谢您的关注。
-<img width="1200" src="https://images.gitee.com/uploads/images/2020/1118/090924_294734ef_1794996.jpeg"/>
-
-
