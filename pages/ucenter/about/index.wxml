@@ -1,0 +1,15 @@
+<view class="container">
+    <view class='about-wrap'>
+        <view class='title'>Aloha音响商城</view>
+        <view class='content'>
+            xxxxxxx
+        </view>
+        <view class="line"></view>
+        <view class="content">开发者：ALoha_Xu</view>
+        <view class="content">微信：xxxxx</view>
+        <view class="line"></view>
+        <view class='content'>
+            更多信息访问：www.alohaxuuuu.top
+        </view>
+    </view>
+</view>
