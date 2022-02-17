@@ -2,6 +2,8 @@
 // const ApiRootUrl = 'http://192.168.0.108:8360/api/';
 const ApiRootUrl = 'https://www.guxiaoling.com:8466/api/';
 
+
+//test
 module.exports = {
     // 登录
     AuthLoginByWeixin: ApiRootUrl + 'auth/loginByWeixin', //微信登录
