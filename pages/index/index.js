@@ -73,8 +73,6 @@ Page({
                 that.setData({
                     floorGoods: res.data.categoryList,
                     banner: res.data.banner,
-                    channel: res.data.channel,
-                    notice: res.data.notice,
                     loading: 1,
                 });
                 let cartGoodsCount = '';

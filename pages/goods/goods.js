@@ -95,40 +95,40 @@ Page({
     getGoodsInfo: function() {
         let that = this;
         util.request(api.GoodsDetail, {
-            id: that.data.id
+            goodsId: Number(that.data.id)
         }).then(function(res) {
             if (res.errno === 0) {
-                let _specificationList = res.data.specificationList;
-                // 如果仅仅存在一种货品，那么商品页面初始化时默认checked
-                if (_specificationList.valueList.length == 1) {
-                    _specificationList.valueList[0].checked = true
-                    that.setData({
-                        checkedSpecText: '已选择：' + _specificationList.valueList[0].value,
-                        tmpSpecText: '已选择：' + _specificationList.valueList[0].value,
-                    });
-                } else {
-                    that.setData({
-                        checkedSpecText: '请选择规格和数量'
-                    });
-                }
+                // let _specificationList = res.data.specificationList;
+                // // 如果仅仅存在一种货品，那么商品页面初始化时默认checked
+                // if (_specificationList.valueList.length == 1) {
+                //     _specificationList.valueList[0].checked = true
+                //     that.setData({
+                //         checkedSpecText: '已选择：' + _specificationList.valueList[0].value,
+                //         tmpSpecText: '已选择：' + _specificationList.valueList[0].value,
+                //     });
+                // } else {
+                //     that.setData({
+                //         checkedSpecText: '请选择规格和数量'
+                //     });
+                // }
                 let galleryImages = [];
                 for (const item of res.data.gallery) {
-                    galleryImages.push(item.img_url);
+                    galleryImages.push(item.url);
                 }
                 that.setData({
-                    goods: res.data.info,
-                    goodsNumber: res.data.info.goods_number,
+                    goods: res.data.info[0],
+                    goodsNumber: res.data.info[0].goodsNumber,
                     gallery: res.data.gallery,
-                    specificationList: res.data.specificationList,
-                    productList: res.data.productList,
-                    checkedSpecPrice: res.data.info.retail_price,
+                    // specificationList: res.data.specificationList,
+                    // productList: res.data.productList,
+                    // checkedSpecPrice: res.data.info.price,
                     galleryImages: galleryImages,
                     loading:1
                 });
                 setTimeout(() => {
-                    WxParse.wxParse('goodsDetail', 'html', res.data.info.goods_desc, that);
+                    WxParse.wxParse('goodsDetail', 'html', res.data.info[0].detail, that);
                 }, 1000);
-                wx.setStorageSync('goodsImage', res.data.info.https_pic_url);
+                wx.setStorageSync('goodsImage', res.data.info[0].img);
             }
             else{
                 util.showErrorToast(res.errmsg)
@@ -311,7 +311,7 @@ Page({
     onShow: function() {
         let userInfo = wx.getStorageSync('userInfo');
         let info = wx.getSystemInfoSync();
-        let sysHeight = info.windowHeight - 100;
+        // let sysHeight = info[0].windowHeight - 100;
         let userId = userInfo.id;
         if (userId > 0) {
             this.setData({
@@ -321,7 +321,7 @@ Page({
         }
         this.setData({
             priceChecked: false,
-            sysHeight: sysHeight
+            // sysHeight: sysHeight
         })
         this.getGoodsInfo();
         this.getCartCount();

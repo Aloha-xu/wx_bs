@@ -2,12 +2,12 @@
     <view class="search-header">
         <view class="input-box">
             <image class="icon-search" src="/images/icon/search.png"></image>
-            <input name="input" class="keywrod" focus="true" value="{{keyword}}" confirm-type="search" bindinput="inputChange" bindfocus="inputFocus" bindconfirm="onKeywordConfirm" confirm-type="search" placeholder="{{defaultKeyword.keyword}}" />
+            <input name="input" class="keywrod" focus="true" value="{{keyword}}" confirm-type="search" bindinput="inputChange" bindfocus="inputFocus" bindconfirm="onKeywordConfirm"  placeholder="{{defaultKeyword.keyword}}" />
             <image src="/images/icon/search-dele.png" class="del" wx:if="{{keyword}}" bindtap="clearKeyword"></image>
         </view>
         <view class="right" bindtap="closeSearch">取消</view>
     </view>
-    <view class="no-search" wx:if="{{ !searchStatus}}">
+    <!-- <view class="no-search" wx:if="{{ !searchStatus}}">
         <view class="serach-keywords search-history" wx:if="{{!keyword  && historyKeyword.length}}">
             <view class="h">
                 <text class="title">历史记录</text>
@@ -28,10 +28,10 @@
         <view class="shelper-list" wx:if="{{keyword}}">
             <view class="item" hover-class="navigator-hover" wx:for="{{helpKeyword}}" bindtap="onKeywordTap" data-keyword="{{item}}" wx:key="id">{{item}}</view>
         </view>
-    </view>
+    </view> -->
 
     <view class="search-result" wx:if="{{ searchStatus && goodsList.length}}">
-        <view class="sort">
+        <!-- <view class="sort">
             <view class="sort-box">
                 <view class="item {{currentSortType == 'default' ? 'active' : ''}}" bindtap="openSortFilter" id="defaultSort">
                     <view class="txt">综合</view>
@@ -53,18 +53,17 @@
                     </block>
                 </view>
             </view>
-        </view>
+        </view> -->
         <view class="cate-item">
             <view class="b">
                 <view class='list-wrap clearfix'>
                     <view class="goods-box {{(iindex+1)%2 == 0?'no-margin':''}}" wx:for="{{goodsList}}" wx:for-index="iindex" wx:for-item="iitem" wx:key="id">
-                        <navigator hover-class='none' class='navi-url' url="/pages/goods/goods?id={{iitem.id}}">
+                        <navigator hover-class='none' class='navi-url' url="/pages/goods/goods?id={{iitem.goodsId}}">
                             <view class="box">
-                                <image src="{{iitem.list_pic_url}}" class="image">
+                                <image src="{{iitem.img}}" class="image">
                                     <view wx:if="{{iitem.is_new == 1}}" class='new-tag'>新品</view>
                                 </image>
                                 <block wx:if="{{iitem.goods_number == 0}}">
-                                    <!-- <view class='no-goods-mask'></view> -->
                                     <view class='sold-img'>
                                         <image class='soldout' src='/images/icon/sold-out.png'></image>
                                     </view>
@@ -75,7 +74,7 @@
                                 <view class="goods-intro">{{iitem.goods_brief}}</view>
                                 <view class='price-container'>
                                     <view class='l'>
-                                        <view class='h'>￥{{iitem.min_retail_price}}</view>
+                                        <view class='h'>￥{{iitem.price}}</view>
                                     </view>
                                 </view>
                             </view>

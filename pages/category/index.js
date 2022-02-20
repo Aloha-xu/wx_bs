@@ -64,10 +64,10 @@ Page({
     getCurrentList: function(id) {
         let that = this;
         util.request(api.GetCurrentList, {
-            size: that.data.size,
-            page: that.data.allPage,
-            id: id
-        }, 'POST').then(function(res) {
+            pageSize: that.data.size,
+            currentPage:that.data.allPage,
+            cateId: id
+        }, 'get').then(function(res) {
             if (res.errno === 0) {
                 let count = res.data.count;
                 that.setData({

@@ -35,9 +35,6 @@ Page({
     // },
 
     getUserProfile: function () {
-        // wx.navigateTo({
-        //     url: '/pages/app-auth/index',
-        // });
         let that = this;
         let code = '';
         wx.login({
@@ -58,7 +55,23 @@ Page({
                     signature: res.signature
                 };
                 console.log(loginParams);
-                that.postLogin(loginParams);
+                //调用后台登陆接口 拿到token
+                util.request(api.AuthLoginByWeixin, {
+                    info: loginParams
+                }, 'POST').then(function (res) {
+                    console.log(res);
+                    if (res.errno === 0) {
+                        // 测试  先写死
+                        // wx.setStorageSync('userInfo', '123');
+                        // wx.setStorageSync('token', '123');
+                        wx.setStorageSync('userInfo', res.data.userInfo);
+                        wx.setStorageSync('token', res.data.token);
+                        app.globalData.userInfo = res.data.userInfo;
+                        app.globalData.token = res.data.token;
+                        wx.navigateBack();
+                    }
+                });
+
             },
             // 失败回调
             fail: () => {
@@ -67,30 +80,7 @@ Page({
             }
         });
     },
-    postLogin(info) {
-        util.request(api.AuthLoginByWeixin, {
-            info: info
-        }, 'POST').then(function (res) {
-            console.log(res);
-            if (res.errno === 0) {
-                // 测试  先写死
-                wx.setStorageSync('userInfo', '123');
-                wx.setStorageSync('token', '123');
-                // wx.setStorageSync('userInfo', res.data.userInfo);
-                // wx.setStorageSync('token', res.data.token);
-                app.globalData.userInfo = res.data.userInfo;
-                app.globalData.token = res.data.token;
-                let is_new = res.data.is_new; //服务器返回的数据；
-                console.log(is_new);
-                if (is_new == 0) {
-                    util.showErrorToast('您已经是老用户啦！');
-                    wx.navigateBack();
-                } else if (is_new == 1) {
-                    wx.navigateBack();
-                }
-            }
-        });
-    },
+    //返回
     goBack: function () {
         wx.navigateBack();
     }

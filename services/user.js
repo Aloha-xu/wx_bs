@@ -52,24 +52,24 @@ function checkLogin() {
     });
 }
 
-function authorizeInfo() {
-    return new Promise(function(resolve, reject) {
-        wx.getUserInfo({
-            withCredentials: true,
-            success: function(res) {
-                resolve({
-                    authorizeInfo: true
-                });
-            },
-            fail: function(err) {
-                reject(err);
-                return 2;
-            }
-        })
-    })
-}
+// function authorizeInfo() {
+//     return new Promise(function(resolve, reject) {
+//         wx.getUserInfo({
+//             withCredentials: true,
+//             success: function(res) {
+//                 resolve({
+//                     authorizeInfo: true
+//                 });
+//             },
+//             fail: function(err) {
+//                 reject(err);
+//                 return 2;
+//             }
+//         })
+//     })
+// }
 module.exports = {
     loginByWeixin,
     checkLogin,
-    authorizeInfo
+    // authorizeInfo
 };

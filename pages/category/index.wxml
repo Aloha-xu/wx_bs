@@ -11,7 +11,7 @@
         <!-- 左边导航栏 -->
         <scroll-view class="nav" scroll-y="true">
             <view class="item {{ nowId == 0 ?'active' : ''}}" bindtap="switchCate" data-id="0">全部</view>
-            <view class="item {{ nowId == item.id?'active' : ''}}" wx:for="{{navList}}" wx:key="id" data-id="{{item.id}}" bindtap="switchCate">{{item.name}}</view>
+            <view class="item {{ nowId == item.cateId?'active' : ''}}" wx:for="{{navList}}" wx:key="id" data-id="{{item.cateId}}" bindtap="switchCate">{{item.name}}</view>
         </scroll-view>
         <!-- 具体商品列表 -->
         <scroll-view class="cate" scroll-y="true" bindscrolltolower="onBottom">
@@ -24,10 +24,9 @@
                 </view>
                 <view class='list-wrap clearfix'>
                     <view class="goods-box {{(index+1)%2 == 0?'no-margin':''}}" wx:for="{{list}}" wx:for-index="index" wx:for-item="item" wx:key="id">
-                        <navigator hover-class='none' class='navi-url' url="/pages/goods/goods?id={{item.id}}">
+                        <navigator hover-class='none' class='navi-url' url="/pages/goods/goods?id={{item.goodsId}}">
                             <view class="box">
-                                <image src="{{item.list_pic_url}}" class="image">
-                                    <view wx:if="{{item.is_new == 1}}" class='new-tag'>新品</view>
+                                <image src="{{item.img}}" class="image">
                                 </image>
                                 <block wx:if="{{item.goods_number <= 0}}">
                                     <!-- <view class='no-goods-mask'></view> -->
@@ -41,7 +40,7 @@
                                 <view class="goods-intro">{{item.goods_brief}}</view>
                                 <view class='price-container'>
                                     <view class='l'>
-                                        <view class='h'>￥{{item.min_retail_price}}</view>
+                                        <view class='h'>￥{{item.price}}</view>
                                     </view>
                                 </view>
                             </view>

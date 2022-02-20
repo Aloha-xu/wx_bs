@@ -1,31 +1,30 @@
 // const ApiRootUrl = 'http://localhost:8360/api/';
 // const ApiRootUrl = 'http://192.168.0.108:8360/api/';
-const ApiRootUrl = "https://www.guxiaoling.com:8466/api/";
+// const ApiRootUrl = "https://www.guxiaoling.com:8466/api/";
+const ApiRootUrl = "http://localhost:3003/api/";
 
 //test
 //test2
 module.exports = {
-  // 登录
-  AuthLoginByWeixin: ApiRootUrl + "auth/loginByWeixin", //微信登录
-  IndexData: ApiRootUrl + "index/appInfo", //首页数据接口
-  // 分类
-  CatalogList: ApiRootUrl + "catalog/index", //分类目录全部分类数据接口
-  CatalogCurrent: ApiRootUrl + "catalog/current", //分类目录当前分类数据接口
-  GetCurrentList: ApiRootUrl + "catalog/currentlist",
+  AuthLoginByWeixin: ApiRootUrl + "user/token", //微信登录 1
+  IndexData: ApiRootUrl + "home/appInfo", //首页数据接口 1
+  CatalogList: ApiRootUrl + "common/categoryList", //分类目录全部分类数据接口 1
+  // CatalogCurrent: ApiRootUrl + "catalog/current", //分类目录当前分类数据接口
+  GetCurrentList: ApiRootUrl + "goods/list", // 1
   // 购物车
-  CartAdd: ApiRootUrl + "cart/add", // 添加商品到购物车
-  CartList: ApiRootUrl + "cart/index", //获取购物车的数据
-  CartUpdate: ApiRootUrl + "cart/update", // 更新购物车的商品
-  CartDelete: ApiRootUrl + "cart/delete", // 删除购物车的商品
-  CartChecked: ApiRootUrl + "cart/checked", // 选择或取消选择商品
-  CartGoodsCount: ApiRootUrl + "cart/goodsCount", // 获取购物车商品件数
-  CartCheckout: ApiRootUrl + "cart/checkout", // 下单前信息确认
+  // CartAdd: ApiRootUrl + "cart/add", // 添加商品到购物车
+  // CartList: ApiRootUrl + "cart/index", //获取购物车的数据
+  // CartUpdate: ApiRootUrl + "cart/update", // 更新购物车的商品
+  // CartDelete: ApiRootUrl + "cart/delete", // 删除购物车的商品
+  // CartChecked: ApiRootUrl + "cart/checked", // 选择或取消选择商品
+  // CartGoodsCount: ApiRootUrl + "cart/goodsCount", // 获取购物车商品件数
+  // CartCheckout: ApiRootUrl + "cart/checkout", // 下单前信息确认
   // 商品
-  GoodsCount: ApiRootUrl + "goods/count", //统计商品总数
-  GoodsDetail: ApiRootUrl + "goods/detail", //获得商品的详情
-  GoodsList: ApiRootUrl + "goods/list", //获得商品列表
-  GoodsShare: ApiRootUrl + "goods/goodsShare", //获得商品的详情
-  SaveUserId: ApiRootUrl + "goods/saveUserId",
+  // GoodsCount: ApiRootUrl + "goods/count", //统计商品总数
+  GoodsDetail: ApiRootUrl + "goods/detail", //获得商品的详情 1
+  // GoodsList: ApiRootUrl + "goods/list", //获得商品列表
+  // GoodsShare: ApiRootUrl + "goods/goodsShare", //获得商品的详情
+  // SaveUserId: ApiRootUrl + "goods/saveUserId",
   // 收货地址
   AddressDetail: ApiRootUrl + "address/addressDetail", //收货地址详情
   DeleteAddress: ApiRootUrl + "address/deleteAddress", //保存收货地址
@@ -47,10 +46,10 @@ module.exports = {
   FootprintList: ApiRootUrl + "footprint/list", //足迹列表
   FootprintDelete: ApiRootUrl + "footprint/delete", //删除足迹
   // 搜索
-  SearchIndex: ApiRootUrl + "search/index", //搜索页面数据
+  // SearchIndex: ApiRootUrl + "search/index", //搜索页面数据
   SearchHelper: ApiRootUrl + "search/helper", //搜索帮助
   SearchClearHistory: ApiRootUrl + "search/clearHistory", //搜索帮助
-  ShowSettings: ApiRootUrl + "settings/showSettings",
+  // ShowSettings: ApiRootUrl + "settings/showSettings",
   SaveSettings: ApiRootUrl + "settings/save",
   SettingsDetail: ApiRootUrl + "settings/userDetail",
   GetBase64: ApiRootUrl + "qrcode/getBase64", //获取商品详情二维码
