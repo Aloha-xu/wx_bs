@@ -39,7 +39,7 @@
     </view>
     <view class="default-wrap">
         <view class="text">设为默认地址</view>
-        <switch class="switch" checked="{{address.is_default}}" bindchange="switchChange"></switch>
+        <switch class="switch" checked="{{address.isDefault}}" bindchange="switchChange"></switch>
     </view>
     <view class='btn-wrap' bindtap="saveAddress">
         <view class="btn active">保存</view>

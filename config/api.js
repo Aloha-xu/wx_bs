@@ -28,9 +28,9 @@ module.exports = {
   // 收货地址
   GetAddresses: ApiRootUrl + "address/list",//获取收获地址列表 1 
   AddressDetail: ApiRootUrl + "address/addressDetail", //收货地址详情 1 
-  // DeleteAddress: ApiRootUrl + "address/deleteAddress", //删除收货地址
+  DeleteAddress: ApiRootUrl + "address/delAdsress", //删除收货地址 1 
   AddAddress: ApiRootUrl + "address/addAddress", //添加收货地址 1
-  UpdataAddress: ApiRootUrl + "address/updataAddress", //修改收货地址 1
+  UpdataAddress: ApiRootUrl + "address/updataAdress", //修改收货地址 1
   // RegionList: ApiRootUrl + "region/list", //获取区域列表
   // PayPrepayId: ApiRootUrl + "pay/preWeixinPay", //获取微信统一下单prepay_id
   // OrderSubmit: ApiRootUrl + "order/submit", // 提交订单
