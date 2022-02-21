@@ -1,19 +1,22 @@
 var util = require('../../../utils/util.js');
 var api = require('../../../config/api.js');
+var cityJS = require('../../../utils/city.js')
 var app = getApp();
-Page({
-    data: {
 
+Page({
+    
+    data: {
+        allAddress:'',
         address: {
             id: 0,
-            province_id: 0,
-            city_id: 0,
-            district_id: 0,
-            address: '',
-            full_region: '',
+            province: 0,
+            city: 0,
+            district: 0,
+            street: '',
             name: '',
-            mobile: '',
-            is_default: 0
+            tel: '',
+            is_default: 0,
+            code:""
         },
         addressId: 0,
         openSelectRegion: false,
@@ -41,10 +44,10 @@ Page({
         selectRegionDone: false
     },
     mobilechange(e) {
-        let mobile = e.detail.value;
+        let tel = e.detail.value;
         let address = this.data.address;
-        if (util.testMobile(mobile)) {
-            address.mobile = mobile;
+        if (util.testMobile(tel)) {
+            address.tel = tel;
             this.setData({
                 address: address
             });
@@ -58,10 +61,10 @@ Page({
         });
     },
     bindinputAddress(event) {
-        let address = this.data.address;
-        address.address = event.detail.value;
+        let street = this.data.street;
+        street.street = event.detail.value;
         this.setData({
-            address: address
+            address: street
         });
     },
     switchChange(e) {
@@ -75,6 +78,7 @@ Page({
             [address]: is_default
         });
     },
+    //获取地址详情
     getAddressDetail() {
         let that = this;
         util.request(api.AddressDetail, {
@@ -82,11 +86,13 @@ Page({
         }).then(function(res) {
             if (res.errno === 0) {
                 that.setData({
+                    //这里需要把省市区弄出来
                     address: res.data
                 });
             }
         });
     },
+    //删除地址
     deleteAddress: function() {
         let id = this.data.addressId;
         wx.showModal({
@@ -109,6 +115,7 @@ Page({
             }
         })
     },
+
     setRegionDoneStatus() {
         let that = this;
         let doneStatus = that.data.selectRegionList.every(item => {
@@ -178,6 +185,10 @@ Page({
 
     },
     onLoad: function(options) {
+    cityJS.init(this);
+    this.setData({
+        allAddress : this.data.provice +' '+ this.data.city +' '+ this.data.district
+    })
         // 页面初始化 options为页面跳转所带来的参数
         if (options.id) {
             this.setData({
@@ -316,17 +327,18 @@ Page({
             }
         });
     },
+    //保存地址  更新 / 新建
     saveAddress() {
         let address = this.data.address;
         if (address.name == '' || address.name == undefined) {
             util.showErrorToast('请输入姓名');
             return false;
         }
-        if (address.mobile == '' || address.mobile == undefined) {
+        if (address.tel == '' || address.tel == undefined) {
             util.showErrorToast('请输入手机号码');
             return false;
         }
-        if (address.district_id == 0 || address.district_id == undefined) {
+        if (address.district == 0 || address.district == undefined) {
             util.showErrorToast('请输入省市区');
             return false;
         }
@@ -335,20 +347,40 @@ Page({
             return false;
         }
         let that = this;
-        util.request(api.SaveAddress, {
-            id: address.id,
-            name: address.name,
-            mobile: address.mobile,
-            province_id: address.province_id,
-            city_id: address.city_id,
-            district_id: address.district_id,
-            address: address.address,
-            is_default: address.is_default,
-        }, 'POST').then(function(res) {
-            if (res.errno === 0) {
-                wx.navigateBack()
-            }
-        });
+        //判断是新增还是修改
+        if(that.data.addressId == 0 ){
+            //新增
+            util.request(api.AddAddress, {
+                name: address.name,
+                tel: address.tel,
+                province: that.data.provice,
+                city: that.data.city,
+                county:that.data.district,
+                street: that.data.allAddress,
+                isDefault: address.is_default,
+            }, 'POST').then(function(res) {
+                if (res.errno === 0) {
+                    wx.navigateBack()
+                }
+            });
+        }else{
+            //修改
+            util.request(api.UpdataAddress, {
+                id: address.id,
+                name: address.name,
+                tel: address.tel,
+                province: that.data.provice,
+                city: that.data.city,
+                county:that.data.district,
+                street: that.data.allAddress,
+                isDefault: address.is_default,
+            }, 'POST').then(function(res) {
+                if (res.errno === 0) {
+                    wx.navigateBack()
+                }
+            });
+        }
+        
     },
     onShow: function() {
         let id = this.data.addressId;
@@ -369,5 +401,31 @@ Page({
     onUnload: function() {
         // 页面关闭
 
-    }
+    },
+
+    /**
+   * 页面选址触发事件
+   */
+  choosearea: function () {
+      this.setData({
+        openSelectRegion: true
+    })
+  },
+  /**
+   * 滑动事件
+   */
+  bindChange: function (e) {
+    const current_value = e.detail.value;
+    cityJS.change(current_value,this);
+    this.setData({
+        allAddress : this.data.provice +' '+ this.data.city +' '+ this.data.district
+    })
+  },
+
+  handletouchmove : function(){
+    this.setData({
+        openSelectRegion: false
+      })
+  }
+
 })

@@ -10,9 +10,9 @@ function request(url, data = {}, method = "GET") {
             header: {
             'Content-Type': 'application/json',
                 //这是使用另外一个后端需要带上token 的代码
-                // 'Authorization':wx.getStorageSync('token')
+                'Authorization':`Bearer ${wx.getStorageSync('token')}`
                 //这个配套的代码是自定义一个变量带token
-                'X-Hioshop-Token': wx.getStorageSync('token')
+                // 'X-Hioshop-Token': wx.getStorageSync('token')
             },
             success: function(res) {
                 if (res.statusCode == 200) {

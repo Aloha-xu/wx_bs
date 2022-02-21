@@ -26,22 +26,23 @@ module.exports = {
   // GoodsShare: ApiRootUrl + "goods/goodsShare", //获得商品的详情
   // SaveUserId: ApiRootUrl + "goods/saveUserId",
   // 收货地址
-  AddressDetail: ApiRootUrl + "address/addressDetail", //收货地址详情
-  DeleteAddress: ApiRootUrl + "address/deleteAddress", //保存收货地址
-  SaveAddress: ApiRootUrl + "address/saveAddress", //保存收货地址
-  GetAddresses: ApiRootUrl + "address/getAddresses",
-  RegionList: ApiRootUrl + "region/list", //获取区域列表
-  PayPrepayId: ApiRootUrl + "pay/preWeixinPay", //获取微信统一下单prepay_id
-  OrderSubmit: ApiRootUrl + "order/submit", // 提交订单
-  OrderList: ApiRootUrl + "order/list", //订单列表
-  OrderDetail: ApiRootUrl + "order/detail", //订单详情
-  OrderDelete: ApiRootUrl + "order/delete", //订单删除
-  OrderCancel: ApiRootUrl + "order/cancel", //取消订单
-  OrderConfirm: ApiRootUrl + "order/confirm", //物流详情
-  OrderCount: ApiRootUrl + "order/count", // 获取订单数
-  OrderCountInfo: ApiRootUrl + "order/orderCount", // 我的页面获取订单数状态
-  OrderExpressInfo: ApiRootUrl + "order/express", //物流信息
-  OrderGoods: ApiRootUrl + "order/orderGoods", // 获取checkout页面的商品列表
+  GetAddresses: ApiRootUrl + "address/list",//获取收获地址列表 1 
+  AddressDetail: ApiRootUrl + "address/addressDetail", //收货地址详情 1 
+  // DeleteAddress: ApiRootUrl + "address/deleteAddress", //删除收货地址
+  AddAddress: ApiRootUrl + "address/addAddress", //添加收货地址 1
+  UpdataAddress: ApiRootUrl + "address/updataAddress", //修改收货地址 1
+  // RegionList: ApiRootUrl + "region/list", //获取区域列表
+  // PayPrepayId: ApiRootUrl + "pay/preWeixinPay", //获取微信统一下单prepay_id
+  // OrderSubmit: ApiRootUrl + "order/submit", // 提交订单
+  // OrderList: ApiRootUrl + "order/list", //订单列表
+  // OrderDetail: ApiRootUrl + "order/detail", //订单详情
+  // OrderDelete: ApiRootUrl + "order/delete", //订单删除
+  // OrderCancel: ApiRootUrl + "order/cancel", //取消订单
+  // OrderConfirm: ApiRootUrl + "order/confirm", //物流详情
+  // OrderCount: ApiRootUrl + "order/count", // 获取订单数
+  // OrderCountInfo: ApiRootUrl + "order/orderCount", // 我的页面获取订单数状态
+  // OrderExpressInfo: ApiRootUrl + "order/express", //物流信息
+  // OrderGoods: ApiRootUrl + "order/orderGoods", // 获取checkout页面的商品列表
   // 足迹
   FootprintList: ApiRootUrl + "footprint/list", //足迹列表
   FootprintDelete: ApiRootUrl + "footprint/delete", //删除足迹

@@ -243,3 +243,34 @@ page {
     color: #5d6777;
     text-align: center;
 }
+
+
+
+
+
+
+
+
+.picker-view {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+}
+.addr-item {
+    line-height: 50px;
+    text-align: center;
+    overflow:hidden;
+    white-space:nowrap;
+    word-break:break-all;
+    text-overflow:ellipsis;
+    color: black;
+}
+
+.show {
+    text-align: center;
+    margin: 20px;
+    height: 50px;
+}
+.choose {
+    margin: 20px 0;
+}

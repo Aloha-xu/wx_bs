@@ -8,6 +8,13 @@ Page({
         addresses: [],
         nowAddress: 0
     },
+    //跳转添加地址 id =  0 
+    addAddress: function() {
+        wx.navigateTo({
+            url: '/pages/ucenter/address-detail/index?id=' + 0,
+        })
+    },
+    //跳转编辑地址 id 
     goAddressDetail: function(e) {
         let id = e.currentTarget.dataset.addressid;
         wx.navigateTo({
@@ -24,12 +31,14 @@ Page({
             }
         });
     },
+    //目前还不知道有什么用 选择seleort
     selectAddress:function(e) {
         let addressId = e.currentTarget.dataset.addressid
         wx.setStorageSync('addressId', addressId);
         wx.navigateBack();
     },
     onLoad: function(options) {
+        //type
         let type = options.type;
         this.setData({
             type: type
@@ -50,11 +59,7 @@ Page({
             });
         }
     },
-    addAddress: function() {
-        wx.navigateTo({
-            url: '/pages/ucenter/address-detail/index?id=' + 0,
-        })
-    },
+   
     onPullDownRefresh: function () {
         wx.showNavigationBarLoading()
         this.getAddresses();

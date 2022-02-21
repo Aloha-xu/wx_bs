@@ -1,18 +1,18 @@
 <view class="container">
     <view class='has-info' wx:if="{{addresses.length > 0}}">
+    <!-- 这个type应该要有用 目前还不知道 -->
         <view bindtap="{{type == 0?'goAddressDetail':'selectAddress'}}" class='info-item' data-addressid="{{item.id}}" wx:for="{{addresses}}" wx:key="id">
             <view class="selected" wx:if="{{type == 1}}">
                 <image wx:if="{{item.id == nowAddress}}" class="img" src="/images/icon/gou-red.png"></image>
                 <image wx:else class="img" src="/images/icon/gou-gray.png"></image>
             </view>
             <view class="info-wrap">
-                <view class="addr">
-                    <view class="top">{{item.address}}</view>
-                    <view class="text">{{item.full_region}}</view>
-                </view>
                 <view class="name">
-                    <view class="text">{{item.name}} {{item.mobile}}</view>
-                    <view class="default" wx:if="{{item.is_default}}">默认</view>
+                    <view class="text">{{item.name}} {{item.tel}}</view>
+                    <view class="default" wx:if="{{item.isDefault}}">默认</view>
+                </view>
+                <view class="addr">
+                    <view class="top"> {{item.province}} {{item.city}} {{item.county}} {{item.address}}</view>
                 </view>
             </view>
             <view class="edit-wrap" data-addressid="{{item.id}}" catchtap='goAddressDetail'>
