@@ -116,8 +116,8 @@ Page({
                     });
                 }
             }
-        })
-    },
+            })
+        },
 
     // setRegionDoneStatus() {
     //     let that = this;

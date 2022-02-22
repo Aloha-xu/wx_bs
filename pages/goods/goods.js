@@ -376,6 +376,8 @@ Page({
             showDialog: !this.data.showDialog
         });
     },
+
+    //添加到购物车
     addToCart: function() {
         // 判断是否登录，如果没有登录，则登录
         util.loginNow();
@@ -458,6 +460,8 @@ Page({
                 });
         }
     },
+
+    //立即购买
     fastToCart: function() {
         // 判断是否登录，如果没有登录，则登录
         util.loginNow();

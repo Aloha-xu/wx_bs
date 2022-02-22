@@ -12,13 +12,13 @@ module.exports = {
   // CatalogCurrent: ApiRootUrl + "catalog/current", //分类目录当前分类数据接口
   GetCurrentList: ApiRootUrl + "goods/list", // 1
   // 购物车
-  // CartAdd: ApiRootUrl + "cart/add", // 添加商品到购物车
-  // CartList: ApiRootUrl + "cart/index", //获取购物车的数据
-  // CartUpdate: ApiRootUrl + "cart/update", // 更新购物车的商品
-  // CartDelete: ApiRootUrl + "cart/delete", // 删除购物车的商品
-  // CartChecked: ApiRootUrl + "cart/checked", // 选择或取消选择商品
-  // CartGoodsCount: ApiRootUrl + "cart/goodsCount", // 获取购物车商品件数
-  // CartCheckout: ApiRootUrl + "cart/checkout", // 下单前信息确认
+  CartAdd: ApiRootUrl + "cart/add", // 添加商品到购物车 1 
+  CartList: ApiRootUrl + "cart/list", //获取购物车的数据 1 
+  CartUpdate: ApiRootUrl + "cart/update", // 更新购物车的商品 增加减少购物车商品的数量
+  CartDelete: ApiRootUrl + "cart/delete", // 删除购物车的商品 1 
+  CartChecked: ApiRootUrl + "cart/checked", // 选择或取消选择商品
+  CartGoodsCount: ApiRootUrl + "cart/goodsCount", // 获取购物车商品件数
+  CartCheckout: ApiRootUrl + "cart/checkout", // 下单前信息确认
   // 商品
   // GoodsCount: ApiRootUrl + "goods/count", //统计商品总数
   GoodsDetail: ApiRootUrl + "goods/detail", //获得商品的详情 1
