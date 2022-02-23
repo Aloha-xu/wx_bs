@@ -4,6 +4,7 @@ const app = getApp();
 
 Page({
   data: {
+    //购物车 商品
     cartGoods: [],
     cartTotal: {
       goodsCount: 0,
@@ -57,7 +58,7 @@ Page({
   },
   getCartList: function () {
     let that = this;
-    util.request(api.CartList).then(function (res) {
+    util.request(api.CartList,{},'POST').then(function (res) {
       if (res.errno === 0) {
         let hasCartGoods = res.data.cartList;
         if (hasCartGoods.length != 0) {
@@ -67,12 +68,12 @@ Page({
         }
         that.setData({
           cartGoods: res.data.cartList,
-          cartTotal: res.data.cartTotal,
+          cartTotal: res.data.cartList.length,
           hasCartGoods: hasCartGoods,
         });
-        if (res.data.cartTotal.numberChange == 1) {
-          util.showErrorToast("部分商品库存有变动");
-        }
+        // if (res.data.cartTotal.numberChange == 1) {
+        //   util.showErrorToast("部分商品库存有变动");
+        // }
       }
       that.setData({
         checkedAllStatus: that.isCheckedAll(),
@@ -108,13 +109,13 @@ Page({
     let that = this;
     if (!this.data.isEditCart) {
       var productIds = this.data.cartGoods.map(function (v) {
-        return v.product_id;
+        return v.cartId;
       });
       util
         .request(
           api.CartChecked,
           {
-            productIds: productIds.join(","),
+            cartId: productIds.join(","),
             isChecked: that.isCheckedAll() ? 0 : 1,
           },
           "POST"
@@ -145,7 +146,7 @@ Page({
       });
     }
   },
-  updateCart: function (itemIndex, productId, number, id) {
+  updateCart: function (itemIndex, goodsId, number, cartId) {
     let that = this;
     wx.showLoading({
       title: "",
@@ -156,10 +157,10 @@ Page({
         api.CartUpdate,
         {
           //商品id
-          goodsId: productId,
+          goodsId: goodsId,
           goodsNumber: number,
           //购物车id
-          cartId: id,
+          cartId: cartId,
         },
         "POST"
       )
@@ -167,43 +168,44 @@ Page({
         if (res.errno === 0) {
           that.setData({
             cartGoods: res.data.cartList,
-            cartTotal: res.data.cartTotal,
+            cartTotal: res.data.cartList.length,
           });
           let cartItem = that.data.cartGoods[itemIndex];
-          cartItem.number = number;
+          cartItem.goodsNumber = number;
           that.getCartNum();
         } else {
           util.showErrorToast("库存不足了");
         }
-        that.setData({
-          checkedAllStatus: that.isCheckedAll(),
+        // that.setData({
+        //   checkedAllStatus: that.isCheckedAll(),
+        // });
+        wx.hideLoading({
         });
-        wx.hideLoading({});
       });
   },
   cutNumber: function (event) {
     let itemIndex = event.target.dataset.itemIndex;
     let cartItem = this.data.cartGoods[itemIndex];
-    if (cartItem.number - 1 == 0) {
+    if (cartItem.goodsNumber - 1 == 0) {
       util.showErrorToast("删除左滑试试");
     }
-    let number = cartItem.number - 1 > 1 ? cartItem.number - 1 : 1;
+    let number = cartItem.goodsNumber - 1 > 1 ? cartItem.goodsNumber - 1 : 1;
     this.setData({
       cartGoods: this.data.cartGoods,
     });
-    this.updateCart(itemIndex, cartItem.product_id, number, cartItem.id);
+    this.updateCart(itemIndex, cartItem.goodsId, number, cartItem.cartId);
   },
   addNumber: function (event) {
     let itemIndex = event.target.dataset.itemIndex;
     let cartItem = this.data.cartGoods[itemIndex];
-    let number = Number(cartItem.number) + 1;
+    let number = Number(cartItem.goodsNumber) + 1;
     this.setData({
       cartGoods: this.data.cartGoods,
     });
-    this.updateCart(itemIndex, cartItem.product_id, number, cartItem.id);
+    this.updateCart(itemIndex, cartItem.goodsId, number, cartItem.cartId);
   },
   getCartNum: function () {
-    util.request(api.CartGoodsCount).then(function (res) {
+    util.request(api.CartGoodsCount,{},'post').then(function (res) {
       if (res.errno === 0) {
         let cartGoodsCount = "";
         if (res.data.cartTotal.goodsCount == 0) {
@@ -267,7 +269,7 @@ Page({
         .request(
           api.CartChecked,
           {
-            productIds: that.data.cartGoods[itemIndex].product_id,
+            cartId: that.data.cartGoods[itemIndex].product_id,
             isChecked: that.data.cartGoods[itemIndex].checked ? 0 : 1,
           },
           "POST"

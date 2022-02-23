@@ -2,25 +2,25 @@
 	<view class="goodsList" wx:if="{{cartGoods.length > 0}}">
 		<view class="a-goods {{item.isTouchMove ? 'touch-move-active' : ''}}" wx:for="{{cartGoods}}" wx:key="id" bindtouchstart="touchstart" bindtouchmove="touchmove" data-index="{{index}}">
 			<view class='content'>
-				<view wx:if="{{item.number >0 && item.is_on_sale == 1}}" class="checkbox" bindtap="checkedItem" data-item-index="{{index}}">
+				<view wx:if="{{item.goodsNumber >0 && item.state == 1}}" class="checkbox" bindtap="checkedItem" data-item-index="{{index}}">
 					<image wx:if="{{item.checked == 1}}" class="checkbox-img" src="/images/icon/gou-red.png"></image>
 					<image wx:else class="checkbox-img" src="/images/icon/gou-gray.png"></image>
 				</view>
 				<image src="/images/icon/gou-gray.png" wx:else class="checkbox"></image>
 				<view class="goods-info">
 					<view class="goods-url">
-						<view class="img-box" bindtap="goGoodsDetail" data-goodsid="{{item.goods_id}}">
-							<image src="{{item.list_pic_url}}" class="img" />
+						<view class="img-box" bindtap="goGoodsDetail" data-goodsid="{{item.goodsId}}">
+							<image src="{{item.img}}" class="img" />
 						</view>
 						<view class="text-box">
-							<view class="{{item.number >0 && item.is_on_sale == 1?'goods-title':'out-stock-title'}}">{{item.goods_name}}</view>
-							<view class="goods-label">{{item.goods_specifition_name_value}}</view>
+							<view class="{{item.goodsNumber >0 && item.state == 1?'goods-title':'out-stock-title'}}">{{item.name}}</view>
+							<!-- <view class="goods-label">{{item.goods_specifition_name_value}}</view> -->
 							<view class="goods-price">
-								<view class='price-now'>￥{{item.retail_price}}</view>
+								<view class='price-now'>￥{{item.price}}</view>
 							</view>
-							<view class="selnum" catchtap="nothing" wx:if="{{item.number > 0 && item.is_on_sale == 1}}">
+							<view class="selnum" catchtap="nothing" wx:if="{{item.goodsNumber > 0 && item.state == 1}}">
 								<view data-item-index="{{index}}" class="cut" catchtap="cutNumber">-</view>
-								<input value="{{item.number}}" class="number" disabled="true" type="number" />
+								<input value="{{item.goodsNumber}}" class="number" disabled="true" type="number" />
 								<view data-item-index="{{index}}" class="add" catchtap="addNumber" disabled='{{disabled}}'>+</view>
 							</view>
 							<view wx:else class="out-stock">暂时缺货</view>
