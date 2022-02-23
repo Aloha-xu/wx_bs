@@ -12,10 +12,10 @@ module.exports = {
   // CatalogCurrent: ApiRootUrl + "catalog/current", //分类目录当前分类数据接口
   GetCurrentList: ApiRootUrl + "goods/list", // 1
   // 购物车
-  CartAdd: ApiRootUrl + "cart/add", // 添加商品到购物车 1 
-  CartList: ApiRootUrl + "cart/list", //获取购物车的数据 1 
-  CartUpdate: ApiRootUrl + "cart/update", // 更新购物车的商品 增加减少购物车商品的数量
-  CartDelete: ApiRootUrl + "cart/delete", // 删除购物车的商品 1 
+  CartAdd: ApiRootUrl + "cart/add", // 添加商品到购物车 1
+  CartList: ApiRootUrl + "cart/list", //获取购物车的数据 1
+  CartUpdate: ApiRootUrl + "cart/update", // 更新购物车的商品 这个更新商品的数量 也不是在原有的基础上加减商品数量
+  CartDelete: ApiRootUrl + "cart/delete", // 删除购物车的商品 1
   CartChecked: ApiRootUrl + "cart/checked", // 选择或取消选择商品
   CartGoodsCount: ApiRootUrl + "cart/goodsCount", // 获取购物车商品件数
   CartCheckout: ApiRootUrl + "cart/checkout", // 下单前信息确认
@@ -26,9 +26,9 @@ module.exports = {
   // GoodsShare: ApiRootUrl + "goods/goodsShare", //获得商品的详情
   // SaveUserId: ApiRootUrl + "goods/saveUserId",
   // 收货地址
-  GetAddresses: ApiRootUrl + "address/list",//获取收获地址列表 1 
-  AddressDetail: ApiRootUrl + "address/addressDetail", //收货地址详情 1 
-  DeleteAddress: ApiRootUrl + "address/delAdsress", //删除收货地址 1 
+  GetAddresses: ApiRootUrl + "address/list", //获取收获地址列表 1
+  AddressDetail: ApiRootUrl + "address/addressDetail", //收货地址详情 1
+  DeleteAddress: ApiRootUrl + "address/delAdsress", //删除收货地址 1
   AddAddress: ApiRootUrl + "address/addAddress", //添加收货地址 1
   UpdataAddress: ApiRootUrl + "address/updataAdress", //修改收货地址 1
   // RegionList: ApiRootUrl + "region/list", //获取区域列表
