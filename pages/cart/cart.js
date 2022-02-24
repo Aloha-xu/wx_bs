@@ -26,7 +26,7 @@ Page({
     //判断购物车有无商品
     hasCartGoods: 0,
   },
-  onLoad: function () {},
+  onLoad: function () { },
   onReady: function () {
     // 页面渲染完成
   },
@@ -44,7 +44,7 @@ Page({
       url: "/pages/goods/goods?id=" + goodsId,
     });
   },
-  nothing: function () {},
+  nothing: function () { },
   onPullDownRefresh: function () {
     wx.showNavigationBarLoading();
     this.getCartList();
@@ -276,13 +276,14 @@ Page({
 
   //去到确认订单页面
   checkoutOrder: function () {
+    wx.removeStorageSync("cartInfo")
     //获取已选择的商品
     util.loginNow();
     //赛选出 选择的了商品
     let goods = [];
     let checkedGoods = this.data.cartGoods.filter(({ checked, goodsId }) => {
       //拿到商品id的数组
-      goods.push(goodsId);
+      checked && goods.push(goodsId);
       return checked == true;
     });
     // checkedGoods.map(({ goodsId }) => {

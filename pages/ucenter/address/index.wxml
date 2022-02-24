@@ -1,7 +1,8 @@
 <view class="container">
     <view class='has-info' wx:if="{{addresses.length > 0}}">
-    <!-- 这个type应该要有用 目前还不知道 -->
+    <!-- type  0  地址管理进去-->
         <view bindtap="{{type == 0?'goAddressDetail':'selectAddress'}}" class='info-item' data-addressid="{{item.id}}" wx:for="{{addresses}}" wx:key="id">
+        <!-- type = 1 订单页面进去  -->
             <view class="selected" wx:if="{{type == 1}}">
                 <image wx:if="{{item.id == nowAddress}}" class="img" src="/images/icon/gou-red.png"></image>
                 <image wx:else class="img" src="/images/icon/gou-gray.png"></image>

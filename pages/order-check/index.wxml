@@ -7,10 +7,10 @@
 				<view class="addr-r">
 					<view class="show-address">
 						<view class="name-tel">
-							<view wx:if="{{checkedAddress.is_default}}" class='default-address'>默认</view>
+							<view wx:if="{{checkedAddress.isDefault}}" class='default-address'>默认</view>
 							{{checkedAddress.name}} {{checkedAddress.tel}}
 						</view>
-						<view class="addr-text">{{checkedAddress.province + checkedAddress.city + checkedAddress.county + checkedAddress.street+ checkedAddress.address}}</view>
+						<view class="addr-text">{{checkedAddress.province + checkedAddress.city + checkedAddress.county + checkedAddress.street + checkedAddress.address}}</view>
 					</view>
 					<view class="arrow"></view>
 				</view>
@@ -23,18 +23,39 @@
 				</view>
 			</view>
 		</view>
-		<view class="goods-list" bindtap='toGoodsList'>
+		<view class="goods-list">
 			<view class="list-title">商品信息</view>
-			<view class="a-goods">
+			<!-- <view class="a-goods">
 				<view class="img-box">
 					<view class='image-wrap' wx:for="{{checkedGoodsList}}" wx:if="{{index<5}}" wx:key="id">
 						<image wx:if="{{item.goodsNumber > 0 && item.state == 1}}" src="{{item.img}}" class="goods-image"></image>
 					</view>
 				</view>
 				<view class='goods-sum'>
-                    <view class="text">共{{goodsCount}}件</view>
-                    <view class="arrow"></view>
-                </view>
+					<view class="text">共{{goodsCount}}件</view>
+					<view class="arrow"></view>
+				</view>
+			</view> -->
+			<view class='goods-list-container'>
+				<view class='goods-list-wrap' hover-class='none' wx:for="{{checkedGoodsList}}" wx:key="id" wx:for-item="item">
+					<navigator hover-class='none' class='goods-nav' url='/pages/goods/goods?id={{item.goodsId}}'>
+						<view class='image-wrap'>
+							<image class='goods-image' src='{{item.img}}'></image>
+						</view>
+						<view class='goods-info'>
+							<view class='info-top'>
+								<view class='goods-title'>{{item.name}}</view>
+								<view class='goods-intro'>{{item.goods_specifition_name_value}}</view>
+							</view>
+							<view class='info-bottom'>
+								<view class='left'>
+									<view class='goods-price'>¥{{item.price}}</view>
+									<view class='goods-num'>× {{item.goodsNumber}}</view>
+								</view>
+							</view>
+						</view>
+					</navigator>
+				</view>
 			</view>
 		</view>
 		<view class="price-check-wrap">

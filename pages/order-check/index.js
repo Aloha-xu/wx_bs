@@ -45,6 +45,7 @@ Page({
       url: "/pages/ucenter/goods-list/index?id=0",
     });
   },
+  //type 1
   toSelectAddress: function () {
     wx.navigateTo({
       url: "/pages/ucenter/address/index?type=1",
@@ -82,6 +83,7 @@ Page({
   onShow: function () {
     // 页面显示
     // TODO结算时，显示默认地址，而不是从storage中获取的地址值
+    let that = this
     try {
       let addressId = wx.getStorageSync("addressId");
       if (addressId == 0 || addressId == "") {
@@ -90,8 +92,18 @@ Page({
       this.setData({
         addressId: addressId,
       });
-    } catch (e) {}
+    } catch (e) { }
     this.getCheckoutInfo();
+    //更新地址
+    util.request(api.AddressDetail, {
+      id: that.data.addressId
+  }).then(function(res) {
+      if (res.errno === 0) {
+          that.setData({
+              checkedAddress:res.data,
+          });
+      }
+  });
   },
   onPullDownRefresh: function () {
     wx.showNavigationBarLoading();
@@ -134,10 +146,10 @@ Page({
       )
       .then(function (res) {
         if (res.errno === 0) {
-          //   let addressId = 0;
-          //   if (res.data.checkedAddress != 0) {
-          //     addressId = res.data.checkedAddress.id;
-          //   }
+            // let addressId = 0;
+            // if (res.data.checkedAddress != 0) {
+            //   addressId = res.data.checkedAddress.id;
+            // }
           that.setData({
             //选择中的商品
             checkedGoodsList: res.data.checkedGoodsList,
@@ -146,7 +158,7 @@ Page({
             //实际需要支付的总价
             actualPrice: res.data.actualPrice,
             //地址id
-            addressId: addressId,
+            // addressId: addressId,
             //快递费
             freightPrice: res.data.freightPrice,
             //商品总价

@@ -31,7 +31,6 @@ Page({
             }
         });
     },
-    //目前还不知道有什么用 选择seleort
     selectAddress:function(e) {
         let addressId = e.currentTarget.dataset.addressid
         wx.setStorageSync('addressId', addressId);
