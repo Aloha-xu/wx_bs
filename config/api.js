@@ -14,11 +14,11 @@ module.exports = {
   // 购物车
   CartAdd: ApiRootUrl + "cart/add", // 添加商品到购物车 1
   CartList: ApiRootUrl + "cart/list", //获取购物车的数据 1
-  CartUpdate: ApiRootUrl + "cart/update", // 更新购物车的商品 这个更新商品的数量 也不是在原有的基础上加减商品数量 1 
+  CartUpdate: ApiRootUrl + "cart/update", // 更新购物车的商品 这个更新商品的数量 也不是在原有的基础上加减商品数量 1
   CartDelete: ApiRootUrl + "cart/delete", // 删除购物车的商品 1
-  CartChecked: ApiRootUrl + "cart/checked", // 选择或取消选择商品 1 
-  CartGoodsCount: ApiRootUrl + "cart/goodsCartCount", // 获取购物车商品件数
-  CartCheckout: ApiRootUrl + "cart/checkout", // 下单前信息确认
+  // CartChecked: ApiRootUrl + "cart/checked", // 选择或取消选择商品
+  CartGoodsCount: ApiRootUrl + "cart/goodsCartCount", // 获取购物车商品件数 1
+  CartCheckout: ApiRootUrl + "order/checkout", // 下单前获取确认信息
   // 商品
   // GoodsCount: ApiRootUrl + "goods/count", //统计商品总数
   GoodsDetail: ApiRootUrl + "goods/detail", //获得商品的详情 1

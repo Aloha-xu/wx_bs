@@ -1,4 +1,5 @@
 <view class="container">
+<!-- 订单详情 已经创建了订单了 -->
 	<!--   TODO 将状态码都去掉！  -->
 	<view class='status-wrap' bindtap='clearTimer'>
 		<view class='status-text'>

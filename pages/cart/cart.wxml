@@ -47,10 +47,10 @@
 			<view class="all-selected" bindtap="checkedAll">
 				<image class="checkbox" wx:if="{{checkedAllStatus}}" src="/images/icon/gou-red.png"></image>
 				<image class="checkbox" wx:else src="/images/icon/gou-gray.png"></image>
-				<view class="text">全选({{cartTotal.checkedGoodsCount}})
+				<view class="text">全选({{cartTotal.checkedGoodsCount? cartTotal.checkedGoodsCount : 0}})
 				</view>
 			</view>
-			<view class="total" hidden="">合计：¥{{cartTotal.checkedGoodsAmount}}</view>
+			<view class="total" hidden="">合计：¥{{cartTotal.checkedGoodsAmount? cartTotal.checkedGoodsAmount : 0}}</view>
 		</view>
 		<view class="to-pay-btn" hidden="" bindtap="checkoutOrder">去结算</view>
 		<!-- <view class="to-pay-btn" hidden="" bindtap="test">去结算</view>    -->
