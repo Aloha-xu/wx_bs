@@ -33,7 +33,8 @@ module.exports = {
   UpdataAddress: ApiRootUrl + "address/updataAdress", //修改收货地址 1
   // RegionList: ApiRootUrl + "region/list", //获取区域列表
   // PayPrepayId: ApiRootUrl + "pay/preWeixinPay", //获取微信统一下单prepay_id
-  // OrderSubmit: ApiRootUrl + "order/submit", // 提交订单
+  OrderSubmit: ApiRootUrl + "order/submit", // 提交订单 1
+  OrderUpdataState: ApiRootUrl + "order/updataState", // 改变订单状态接口 1
   // OrderList: ApiRootUrl + "order/list", //订单列表
   // OrderDetail: ApiRootUrl + "order/detail", //订单详情
   // OrderDelete: ApiRootUrl + "order/delete", //订单删除

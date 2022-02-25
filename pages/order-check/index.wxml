@@ -70,7 +70,7 @@
 			<view class="memo-box">
 				<view class="row-label">备注：</view>
 				<view class="right-text memo-input">
-					<input type="text" class="memo" bindinput="bindinputMemo" value="{{orderInfo.postscript}}" placeholder="亲爱的买家，这里输入备注" cursor-spacing="100" />
+					<input type="text" class="memo" bindinput="bindinputMemo" value="{{note}}" placeholder="亲爱的买家，这里输入备注" cursor-spacing="100" />
 				</view>
 			</view>
 			<view class="bottom-box">
@@ -96,7 +96,6 @@
 			<view class="total">实付：</view>
 			<view class="pay-money">¥ {{actualPrice}}</view>
 		</view>
-		<button wx:if="{{payMethod == 0}}" class="to-pay-btn" bindtap='offlineOrder'>提交订单</button>
-		<button wx:else class="to-pay-btn" bindtap='submitOrder'>提交订单</button>
+		<button  class="to-pay-btn" bindtap='submitOrder'>提交订单</button>
 	</view>
 </view>

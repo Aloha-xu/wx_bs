@@ -1,6 +1,6 @@
 <view class="container">
 <!-- 订单详情 已经创建了订单了 -->
-	<!--   TODO 将状态码都去掉！  -->
+	<!-- 订单状态 -->
 	<view class='status-wrap' bindtap='clearTimer'>
 		<view class='status-text'>
 			<image wx:if="{{textCode.pay == true}}" class='icon to-pay' src="/images/icon/to-pay-w.png"></image>
@@ -30,6 +30,7 @@
 			<view class='time-text'>后自动关闭</view>
 		</view>
 	</view>
+	<!-- 地址 -->
 	<view class="address-box">
 		<image class="addr-icon" src="/images/icon/location.png"></image>
 		<view class="show-address">
@@ -37,6 +38,7 @@
 			<view class="addr-text">{{orderInfo.full_region + orderInfo.address}}</view>
 		</view>
 	</view>
+	<!-- 快递信息 -->
 	<view class="onPosting" wx:if="{{orderInfo.shipping_status && onPosting == 0}}">
 		<image class='loading' src='/images/icon/loading.gif'></image>
 		<view class='t'>快递信息查询中。。。</view>
@@ -67,6 +69,7 @@
 			<view class="arrow"></view>
 		</view>
 	</view>
+	<!-- 商品列表信息 -->
 	<view class="goods-list" bindtap='toGoodsList'>
 		<view class='list-info-wrap'>
 			<view class="list-title">商品信息</view>
@@ -83,7 +86,7 @@
 			</view>
 		</view>
 	</view>
-
+	<!-- 价格 快递费 备注 合计 -->
 	<view class="price-check-wrap">
 		<view class="row-box">
 			<view class="row-label">商品总价</view>
@@ -108,6 +111,7 @@
 			<view wx:if="{{orderInfo.change_price != orderInfo.actual_price }}" class='change-price'>(改价)</view>
 		</view>
 	</view>
+	<!-- 订单信息  订单编号： 创建时间：等等-->
 	<view class="order-info">
 		<view class='row-box-wrap'>
 			<view class="row-box2">
@@ -140,6 +144,8 @@
 			</view>
 		</view>
 	</view>
+
+	<!-- botom底部 -->
 	<view class="bottom-fixed-box display-between" wx:if="{{handleOption.cancel && handleOption.pay}}">
 		<view class="to-cancel-btn" data-index="{{orderId}}" bindtap='cancelOrder'>取消订单</view>
 		<button class="to-pay-btn" bindtap='payOrder'>继续支付</button>
@@ -153,4 +159,5 @@
 		<view bindtap='confirmOrder' class='btn-red' wx:if="{{handleOption.confirm}}">确认收货</view>
 		<view class="btn-red" bindtap="reOrderAgain">再来一单</view>
 	</view>
+	
 </view>

@@ -1,3 +1,4 @@
+<!-- 提交订单后 跳转到的支付结果页面 -->
 <view class="container">
     <view wx:if="{{status == 1}}" class="result-wrap">
         <view class='image-wrap'>

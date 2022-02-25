@@ -13,7 +13,7 @@ Page({
     actualPrice: 0.0, //实际需要支付的总价
     addressId: 0,
     goodsCount: 0,
-    postscript: "",
+    note: "",
     outStock: 0,
     payMethodItems: [
       {
@@ -57,33 +57,19 @@ Page({
     });
   },
   bindinputMemo(event) {
-    let postscript = event.detail.value;
+    let note = event.detail.value;
     this.setData({
-      postscript: postscript,
+      note: note,
     });
-  },
-  onLoad: function (options) {
-    // let addType = options.addtype;
-    // let orderFrom = options.orderFrom;
-    // if (addType != undefined) {
-    //   this.setData({
-    //     //??
-    //     addType: addType,
-    //   });
-    // }
-    // if (orderFrom != undefined) {
-    //   this.setData({
-    //     orderFrom: orderFrom,
-    //   });
-    // }
   },
   onUnload: function () {
     wx.removeStorageSync("addressId");
   },
+  onLoad: function () {
+    this.getCheckoutInfo();
+  },
   onShow: function () {
-    // 页面显示
-    // TODO结算时，显示默认地址，而不是从storage中获取的地址值
-    let that = this
+    let that = this;
     try {
       let addressId = wx.getStorageSync("addressId");
       if (addressId == 0 || addressId == "") {
@@ -92,18 +78,19 @@ Page({
       this.setData({
         addressId: addressId,
       });
-    } catch (e) { }
-    this.getCheckoutInfo();
-    //更新地址
-    util.request(api.AddressDetail, {
-      id: that.data.addressId
-  }).then(function(res) {
-      if (res.errno === 0) {
+    } catch (e) {}
+    //更新地址 这个时候拿到的addressid是地址选择后的
+    util
+      .request(api.AddressDetail, {
+        id: that.data.addressId,
+      })
+      .then(function (res) {
+        if (res.errno === 0) {
           that.setData({
-              checkedAddress:res.data,
+            checkedAddress: res.data,
           });
-      }
-  });
+        }
+      });
   },
   onPullDownRefresh: function () {
     wx.showNavigationBarLoading();
@@ -125,7 +112,9 @@ Page({
   //确认订单的信息 或者说 拿到订单的信息
   //进去这个确认订单的详情页 他是还没有生成订单的 只是在确定信息
   // submitOrder 之后才生成订单 这时候就有订单了
-  // 状态0 等待支付 /  付款之后 待发货 状态 1   / 商家已发货  状态2  待收货
+  // 状态0 等待支付  ---  跳到一个模拟的支付页面  支付成功 -修改状态为1  取消支付  -修改状态为0
+  //  付款之后 待发货 状态 1
+  // 商家已发货  状态2  待收货
 
   getCheckoutInfo: function () {
     let that = this;
@@ -146,19 +135,19 @@ Page({
       )
       .then(function (res) {
         if (res.errno === 0) {
-            // let addressId = 0;
-            // if (res.data.checkedAddress != 0) {
-            //   addressId = res.data.checkedAddress.id;
-            // }
+          // let addressId = 0;
+          // if (res.data.checkedAddress != 0) {
+          //   addressId = res.data.checkedAddress.id;
+          // }
           that.setData({
             //选择中的商品
             checkedGoodsList: res.data.checkedGoodsList,
-            //地址详情
+            //地址详情 默认的id
             checkedAddress: res.data.checkedAddress,
             //实际需要支付的总价
             actualPrice: res.data.actualPrice,
-            //地址id
-            // addressId: addressId,
+            //地址id 默认的id
+            addressId: res.data.addressId,
             //快递费
             freightPrice: res.data.freightPrice,
             //商品总价
@@ -171,7 +160,7 @@ Page({
             outStock: res.data.outStock,
           });
           //   let goods = res.data.checkedGoodsList;
-          //   wx.setStorageSync("addressId", addressId);
+          wx.setStorageSync("addressId", that.data.addressId);
           //   if (res.data.outStock == 1) {
           //     util.showErrorToast("有部分商品缺货或已下架");
           //   } else if (res.data.numberChange == 1) {
@@ -180,6 +169,7 @@ Page({
         }
       });
   },
+
   // TODO 有个bug，用户没选择地址，支付无法继续进行，在切换过token的情况下
   submitOrder: function (e) {
     if (this.data.addressId <= 0) {
@@ -187,22 +177,42 @@ Page({
       return false;
     }
     let addressId = this.data.addressId;
-    let postscript = this.data.postscript;
+    let note = this.data.note;
     let freightPrice = this.data.freightPrice;
     let actualPrice = this.data.actualPrice;
+
     wx.showLoading({
       title: "",
       mask: true,
     });
+
+    //封装数据 goodsList
+    let goodsList = [];
+    goodsList = this.data.checkedGoodsList.map(({ goodsId, goodsNumber }) => ({
+      goodsId: goodsId,
+      num: goodsNumber,
+    }));
+
+    // 提交 生成 订单
+
+    // 状态0 等待支付  ---  跳到一个模拟的支付页面  支付成功 -修改状态为1  取消支付  -修改状态为0
+    // 付款之后 待发货 状态1
+    // 商家已发货  状态2  待收货
+    // 生成订单需要传的数据 openid \ addressId \ freightPrice \  note \ actualPay
+    //暂时不用传 payTime 支付完才生成 \
     util
       .request(
         api.OrderSubmit,
         {
+          //地址di
           addressId: addressId,
-          postscript: postscript,
+          //备注
+          note: note,
+          //快递费
           freightPrice: freightPrice,
-          actualPrice: actualPrice,
-          offlinePay: 0,
+          //实际需要支付的总价
+          actualPay: actualPrice,
+          goodsList,
         },
         "POST"
       )
@@ -210,59 +220,94 @@ Page({
         if (res.errno === 0) {
           wx.removeStorageSync("orderId");
           wx.setStorageSync("addressId", 0);
-          const orderId = res.data.orderInfo.id;
-          pay
-            .payOrder(parseInt(orderId))
-            .then((res) => {
-              wx.redirectTo({
-                url: "/pages/payResult/payResult?status=1&orderId=" + orderId,
-              });
-            })
-            .catch((res) => {
-              wx.redirectTo({
-                url: "/pages/payResult/payResult?status=0&orderId=" + orderId,
-              });
-            });
-        } else {
-          util.showErrorToast(res.errmsg);
-        }
-        wx.hideLoading();
-      });
-  },
-  offlineOrder: function (e) {
-    if (this.data.addressId <= 0) {
-      util.showErrorToast("请选择收货地址");
-      return false;
-    }
-    let addressId = this.data.addressId;
-    let postscript = this.data.postscript;
-    let freightPrice = this.data.freightPrice;
-    let actualPrice = this.data.actualPrice;
-    util
-      .request(
-        api.OrderSubmit,
-        {
-          addressId: addressId,
-          postscript: postscript,
-          freightPrice: freightPrice,
-          actualPrice: actualPrice,
-          offlinePay: 1,
-        },
-        "POST"
-      )
-      .then((res) => {
-        if (res.errno === 0) {
-          wx.removeStorageSync("orderId");
-          wx.setStorageSync("addressId", 0);
-          wx.redirectTo({
-            url: "/pages/payOffline/index?status=1",
+          const orderId = res.data.orderId;
+          wx.showModal({
+            title: "提示",
+            content: "模拟付款",
+            success: function (e) {
+              if (e.confirm) {
+                // 已付款 模拟付款接口
+                // 这里调用 接口跟新状态 -- 3
+                util
+                  .request(
+                    api.OrderUpdataState,
+                    {
+                      code: 3,
+                      orderId: orderId,
+                    },
+                    "POST"
+                  )
+                  .then((res) => {
+                    res.errno === 0 &&
+                      wx.redirectTo({
+                        url:
+                          "/pages/payResult/payResult?status=1&orderId=" +
+                          orderId,
+                      });
+                  });
+              } else if (e.cancel) {
+                // 取消付款
+                // 这里调用 接口跟新状态 -- 2
+                util
+                  .request(
+                    api.OrderUpdataState,
+                    {
+                      code: 2,
+                      orderId: orderId,
+                    },
+                    "POST"
+                  )
+                  .then((res) => {
+                    res.errno === 0 &&
+                      wx.redirectTo({
+                        url:
+                          "/pages/payResult/payResult?status=0&orderId=" +
+                          orderId,
+                      });
+                  });
+              }
+            },
           });
-        } else {
-          util.showErrorToast(res.errmsg);
-          wx.redirectTo({
-            url: "/pages/payOffline/index?status=0",
-          });
+          // util.showErrorToast(res.errmsg);
+          wx.hideLoading();
         }
       });
   },
+
+  // offlineOrder: function (e) {
+  //   if (this.data.addressId <= 0) {
+  //     util.showErrorToast("请选择收货地址");
+  //     return false;
+  //   }
+  //   let addressId = this.data.addressId;
+  //   let note = this.data.note;
+  //   let freightPrice = this.data.freightPrice;
+  //   let actualPrice = this.data.actualPrice;
+  //   util
+  //     .request(
+  //       api.OrderSubmit,
+  //       {
+  //         addressId: addressId,
+  //         note: note,
+  //         freightPrice: freightPrice,
+  //         actualPrice: actualPrice,
+  //         offlinePay: 1,
+  //       },
+  //       "POST"
+  //     )
+  //     .then((res) => {
+  //       if (res.errno === 0) {
+  //         wx.removeStorageSync("orderId");
+  //         wx.setStorageSync("addressId", 0);
+  //         wx.redirectTo({
+  //           url: "/pages/payOffline/index?status=1",
+  //         });
+  //       } else {
+  //         util.showErrorToast(res.errmsg);
+  //         wx.redirectTo({
+  //           url: "/pages/payOffline/index?status=0",
+  //         });
+  //       }
+  //     });
+  // },
 });
