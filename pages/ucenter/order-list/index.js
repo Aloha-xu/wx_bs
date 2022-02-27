@@ -2,14 +2,13 @@ var util = require('../../../utils/util.js');
 var api = require('../../../config/api.js');
 const pay = require('../../../services/pay.js');
 const app = getApp()
-// 触底上拉刷新 TODO 这里要将page传给服务器，作者没写
 Page({
     data: {
         orderList: [],
-        allOrderList: [],
-        allPage: 1,
-        allCount: 0,
-        size: 8,
+        // allOrderList: [],
+        // allPage: 1,
+        // allCount: 0,
+        // size: 8,
         showType: 9,
         hasOrder: 0,
         showTips: 0,
@@ -25,21 +24,79 @@ Page({
     payOrder: function(e) {
         let orderId = e.currentTarget.dataset.orderid;
         let that = this;
-        pay.payOrder(parseInt(orderId)).then(res => {
-            let showType = wx.getStorageSync('showType');
+
+          wx.showModal({
+            title: "提示",
+            content: "模拟付款",
+            success: function (e) {
+              if (e.confirm) {
+                // 已付款 模拟付款接口
+                // 这里调用 接口跟新状态 -- 3
+                util
+                  .request(
+                    api.OrderUpdataState,
+                    {
+                      orderState: 3,
+                      orderId: orderId,
+                    },
+                    "POST"
+                  )
+                  .then((res) => {
+                    res.errno === 0 &&
+                      wx.redirectTo({
+                        url:
+                          "/pages/payResult/payResult?status=1&orderId=" +
+                          orderId,
+                      });
+                  });
+              } else if (e.cancel) {
+                // 取消付款
+                // 这里调用 接口跟新状态 -- 2
+                util
+                  .request(
+                    api.OrderUpdataState,
+                    {
+                      orderState: 2,
+                      orderId: orderId,
+                    },
+                    "POST"
+                  )
+                  .then((res) => {
+                    res.errno === 0 &&
+                      wx.redirectTo({
+                        url:
+                          "/pages/payResult/payResult?status=0&orderId=" +
+                          orderId,
+                      });
+                  });
+              }
+
+              let showType = wx.getStorageSync('showType');
             that.setData({
                 showType: showType,
                 orderList: [],
-                allOrderList: [],
-                allPage: 1,
-                allCount: 0,
-                size: 8
             });
             that.getOrderList();
             that.getOrderInfo();
-        }).catch(res => {
-            util.showErrorToast(res.errmsg);
-        });
+            },
+          });
+
+
+        // pay.payOrder(parseInt(orderId)).then(res => {
+        //     let showType = wx.getStorageSync('showType');
+        //     that.setData({
+        //         showType: showType,
+        //         orderList: [],
+        //         allOrderList: [],
+        //         allPage: 1,
+        //         allCount: 0,
+        //         size: 8
+        //     });
+        //     that.getOrderList();
+        //     that.getOrderInfo();
+        // }).catch(res => {
+        //     util.showErrorToast(res.errmsg);
+        // });
     },
     getOrderInfo: function(e) {
         let that = this;
@@ -54,27 +111,38 @@ Page({
     },
     getOrderList() {
         let that = this;
+        let status = +wx.getStorageSync('showType')
         util.request(api.OrderList, {
-            showType: that.data.showType,
-            size: that.data.size,
-            page: that.data.allPage,
-        }).then(function(res) {
-            if (res.errno === 0) {
-                let count = res.data.count;
-                that.setData({
-                    allCount: count,
-                    allOrderList: that.data.allOrderList.concat(res.data.data),
-                    allPage: res.data.currentPage,
-                    orderList: that.data.allOrderList.concat(res.data.data)
+            status: status
+        },'post').then((res)=> {
+            // console.log(res);
+            if (res.errno == 0) {
+                // console.log(res.data);
+                
+                // let count = res.data.count;
+
+                //转换
+                let orderlist =res.data
+                orderlist.map(i => {
+                    i.createTime = util.rTime(i.createTime)
                 });
-                let hasOrderData = that.data.allOrderList.concat(res.data.data);
-                if (count == 0) {
-                    that.setData({
-                        hasOrder: 1
-                    });
-                }
+
+
+                that.setData({
+                    // allCount: count,
+                    // allOrderList: that.data.allOrderList.concat(res.data.data),
+                    // allPage: res.data.currentPage,
+                    orderList: orderlist
+                });
+                // let hasOrderData = that.data.allOrderList.concat(res.data.data);
+                // if (count == 0) {
+                //     that.setData({
+                //         hasOrder: 1
+                //     });
+                // }
             }
-        });
+        })
+
     },
     toIndexPage: function(e) {
         wx.switchTab({
@@ -85,34 +153,39 @@ Page({
     onShow: function() {
         let showType = wx.getStorageSync('showType');
         let nowShowType = this.data.showType;
-        let doRefresh = wx.getStorageSync('doRefresh');
-        if (nowShowType != showType || doRefresh == 1) {
+        // let doRefresh = wx.getStorageSync('doRefresh');
+        if (nowShowType != showType ) {
             this.setData({
                 showType: showType,
                 orderList: [],
-                allOrderList: [],
-                allPage: 1,
-                allCount: 0,
-                size: 8
+                // allOrderList: [],
+                // allPage: 1,
+                // allCount: 0,
+                // size: 8
             });
             this.getOrderList();
-            wx.removeStorageSync('doRefresh');
+            // wx.removeStorageSync('doRefresh');
         }
-        this.getOrderInfo();
+        // this.getOrderInfo();
+        
     },
     switchTab: function(event) {
+        // wx.showLoading({
+        //   title: '加载中...',
+        // })
         let showType = event.currentTarget.dataset.index;
         wx.setStorageSync('showType', showType);
         this.setData({
             showType: showType,
-            orderList: [],
-            allOrderList: [],
-            allPage: 1,
-            allCount: 0,
-            size: 8
+            // orderList: [],
+            // allOrderList: [],
+            // allPage: 1,
+            // allCount: 0,
+            // size: 8
         });
-        this.getOrderInfo();
+        // this.getOrderInfo();
         this.getOrderList();
+        
     },
     // “取消订单”点击效果
     cancelOrder: function(e) {
@@ -146,17 +219,4 @@ Page({
             }
         });
     },
-    onReachBottom: function() {
-        let that = this;
-        if (that.data.allCount / that.data.size < that.data.allPage) {
-            that.setData({
-                showTips: 1
-            });
-            return false;
-        }
-        that.setData({
-            'allPage': that.data.allPage + 1
-        });
-        that.getOrderList();
-    }
 })

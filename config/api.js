@@ -35,13 +35,13 @@ module.exports = {
   // PayPrepayId: ApiRootUrl + "pay/preWeixinPay", //获取微信统一下单prepay_id
   OrderSubmit: ApiRootUrl + "order/submit", // 提交订单 1
   OrderUpdataState: ApiRootUrl + "order/updataState", // 改变订单状态接口 1
-  // OrderList: ApiRootUrl + "order/list", //订单列表
-  // OrderDetail: ApiRootUrl + "order/detail", //订单详情
+  OrderList: ApiRootUrl + "order/list", //订单列表
+  OrderDetail: ApiRootUrl + "order/detail", //订单详情 1 
   // OrderDelete: ApiRootUrl + "order/delete", //订单删除
   // OrderCancel: ApiRootUrl + "order/cancel", //取消订单
   // OrderConfirm: ApiRootUrl + "order/confirm", //物流详情
   // OrderCount: ApiRootUrl + "order/count", // 获取订单数
-  // OrderCountInfo: ApiRootUrl + "order/orderCount", // 我的页面获取订单数状态
+  OrderCountInfo: ApiRootUrl + "order/orderCount", // 我的页面获取订单数状态
   // OrderExpressInfo: ApiRootUrl + "order/express", //物流信息
   // OrderGoods: ApiRootUrl + "order/orderGoods", // 获取checkout页面的商品列表
   // 足迹

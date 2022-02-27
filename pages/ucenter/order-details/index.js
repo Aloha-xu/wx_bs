@@ -1,6 +1,6 @@
 var util = require('../../../utils/util.js');
 var api = require('../../../config/api.js');
-var timer = require('../../../utils/wxTimer.js');
+var wxTimer = require('../../../utils/wxTimer.js');
 var remaintimer = require('../../../utils/remainTime.js');
 const pay = require('../../../services/pay.js');
 const app = getApp()
@@ -10,6 +10,7 @@ Page({
     data: {
         orderId: 0,
         orderInfo: {},
+        addressInfo:{},
         orderGoods: [],
         handleOption: {},
         textCode: {},
@@ -22,7 +23,17 @@ Page({
         wxTimerList: {},
         express: {},
         onPosting: 0,
-        userInfo:{}
+        userInfo:{},
+        countdown: {
+            day: '00',
+            hour: '00',
+            minute: '00',
+            second: '00'
+          },
+          orderCreateTime:null,
+                    orderPayTime:null,
+                    orederShipTime:null,
+                    orederFinishTime:null,
     },
     reOrderAgain: function () {
         let orderId = this.data.orderId
@@ -89,11 +100,12 @@ Page({
         this.getExpressInfo();
     },
     onUnload: function () {
-        let oCancel = this.data.handleOption.cancel;
-        if (oCancel == true) {
-            let orderTimerID = this.data.wxTimerList.orderTimer.wxIntId;
-            clearInterval(orderTimerID);
-        }
+        // let oCancel = this.data.handleOption.cancel;
+        // if (oCancel == true) {
+        //     let orderTimerID = this.data.wxTimerList.orderTimer.wxIntId;
+        //     clearInterval(orderTimerID);
+        // }
+        this.data.TimerInterval && clearInterval(this.data.TimerInterval)
     },
     onHide: function () {
         let oCancel = this.data.handleOption.cancel;
@@ -104,7 +116,7 @@ Page({
     },
     orderTimer: function (endTime) {
         let that = this;
-        var orderTimerID = '';
+        var orderTimerID = 'timeId';
         let wxTimer2 = new timer({
             endTime: endTime,
             name: 'orderTimer',
@@ -143,25 +155,33 @@ Page({
         let that = this;
         util.request(api.OrderDetail, {
             orderId: that.data.orderId
-        }).then(function (res) {
+        },"POST").then(function (res) {
             if (res.errno === 0) {
+                let orderInfo = res.data.orderInfo
                 that.setData({
-                    orderInfo: res.data.orderInfo,
+                    orderInfo,
                     orderGoods: res.data.orderGoods,
-                    handleOption: res.data.handleOption,
-                    textCode: res.data.textCode,
-                    goodsCount: res.data.goodsCount
+                    // handleOption: res.data.handleOption,
+                    // textCode: res.data.textCode,
+                    addressInfo:res.data.addressInfo,
+                    // goodsCount: res.data.goodsCount
+                    orderCreateTime:util.rTime(orderInfo.createTime),
+                    orderPayTime:orderInfo.payTime && util.rTime(orderInfo.payTime) ,
+                    orederShipTime:orderInfo.shipTime && util.rTime(orderInfo.shipTime) ,
+                    orederFinishTime:orderInfo.finishTime && util.rTime(orderInfo.finishTime) ,
                 });
-                let receive = res.data.textCode.receive;
-                if (receive == true) {
-                    let confirm_remainTime = res.data.orderInfo.confirm_remainTime;
-                    remaintimer.reTime(confirm_remainTime, 'c_remainTime', that);
+                let code = orderInfo.code;
+                //这应该是快递到买家手中 等待收货 就是待确认收货的时间  点击完确认收货 订单就到了关闭时间
+                let endTime = 0;
+                if (code == 2) {
+                    // let confirm_remainTime = res.data.orderInfo.finishTime;
+                    // remaintimer.reTime(confirm_remainTime, 'c_remainTime', that);
+                    endTime = +res.data.orderInfo.receivedTime + 24 * 60 * 60 * 15
+                    wxTimer(endTime*1000,that,1000*60)
                 }
-                let oCancel = res.data.handleOption.cancel;
-                let payTime = 0;
-                if (oCancel == true) {
-                    payTime = res.data.orderInfo.final_pay_time
-                    that.orderTimer(payTime);
+                if (code == 0) {
+                    endTime = +res.data.orderInfo.createTime + 24 * 60 * 60 
+                    wxTimer(endTime*1000,that,1000)
                 }
             }
         });

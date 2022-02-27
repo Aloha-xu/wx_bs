@@ -1,10 +1,10 @@
 function reTime(time, timeId, that) {
-    let endTime = time * 1000;
+    let endTime = time ;
     that.setData({
         [timeId]: {
-            day: _format(parseInt((endTime - new Date().getTime()) / 1000 / 60 / 60 / 24)),
-            hour: _format(parseInt((endTime - new Date().getTime()) / 1000 / 60 / 60 % 24)),
-            minute: _format(parseInt((endTime - new Date().getTime()) / 1000 / 60 % 60)),
+            day: _format(parseInt((endTime - new Date().getTime())  / 60 / 60 / 24)),
+            hour: _format(parseInt((endTime - new Date().getTime())  / 60 / 60 % 24)),
+            minute: _format(parseInt((endTime - new Date().getTime()) / 60 % 60)),
         }
     })
 }

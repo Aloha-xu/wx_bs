@@ -26,7 +26,7 @@
     </view>
     <!-- <ad unit-id="adunit-89ae0a0b6860dc9f" ad-type="grid" grid-opacity="0.8" grid-count="5" ad-theme="white"></ad> -->
     <view class="order-container">
-        <view class='header' data-index='0' bindtap='toOrderListTap'>
+        <view class='header' data-index='7' bindtap='toOrderListTap'>
             <view class='top-title'>
                 <view class='left-line'></view>
                 <view class='text'>我的订单</view>
@@ -37,7 +37,7 @@
             </view>
         </view>
         <view class='btn-container'>
-            <view class='icon-wrap' data-index='1' bindtap='toOrderListTap'>
+            <view class='icon-wrap' data-index='0' bindtap='toOrderListTap'>
                 <view class='order-icon-wrap'>
                     <image class='order-icon' src='/images/icon/daifukuan.png'>
                     </image>
@@ -45,7 +45,7 @@
                 </view>
                 <text class='order-txt'>待付款</text>
             </view>
-            <view class='icon-wrap' data-index='2' bindtap='toOrderListTap'>
+            <view class='icon-wrap' data-index='1' bindtap='toOrderListTap'>
                 <view class='order-icon-wrap'>
                     <image class='order-icon' src='/images/icon/daifahuo.png'>
                     </image>
@@ -53,7 +53,7 @@
                 </view>
                 <text class='order-txt'>待发货</text>
             </view>
-            <view class='icon-wrap' data-index='3' bindtap='toOrderListTap'>
+            <view class='icon-wrap' data-index='2' bindtap='toOrderListTap'>
                 <view class='order-icon-wrap'>
                     <image class='order-icon' src='/images/icon/daishouhuo.png'>
                     </image>

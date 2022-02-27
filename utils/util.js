@@ -343,6 +343,26 @@ function getUid(prefix) {
     );
 }
 
+function add0(m){
+    return m<10?'0'+m:m 
+}
+
+function rTime(timestamp) {
+    // var json_date = new Date(date).toJSON();
+    // return new Date(+new Date(json_date) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
+    
+    var time = new Date(+timestamp * 1000);
+    var y = time.getFullYear();
+    var m = time.getMonth()+1;
+    var d = time.getDate();
+    var h = time.getHours();
+    var mm = time.getMinutes();
+    var s = time.getSeconds();
+    return y+'-'+add0(m)+'-'+add0(d)+' '+add0(h)+':'+add0(mm)+':'+add0(s);
+
+
+}
+
 
 module.exports = {
     formatTime: formatTime,
@@ -361,5 +381,6 @@ module.exports = {
     transferColor,
     transferPadding,
     transferBoxShadow,
-    getUid
+    getUid,
+    rTime
 }

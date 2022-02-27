@@ -179,7 +179,8 @@ Page({
     let addressId = this.data.addressId;
     let note = this.data.note;
     let freightPrice = this.data.freightPrice;
-    let actualPrice = this.data.actualPrice;
+    // let actualPrice = this.data.actualPrice;
+    let goodsPrices = this.data.goodsTotalPrice
 
     wx.showLoading({
       title: "",
@@ -198,7 +199,7 @@ Page({
     // 状态0 等待支付  ---  跳到一个模拟的支付页面  支付成功 -修改状态为1  取消支付  -修改状态为0
     // 付款之后 待发货 状态1
     // 商家已发货  状态2  待收货
-    // 生成订单需要传的数据 openid \ addressId \ freightPrice \  note \ actualPay
+    // 生成订单需要传的数据 openid \ addressId \ freightPrice \  note \ goodsPrices
     //暂时不用传 payTime 支付完才生成 \
     util
       .request(
@@ -210,8 +211,8 @@ Page({
           note: note,
           //快递费
           freightPrice: freightPrice,
-          //实际需要支付的总价
-          actualPay: actualPrice,
+          //商品总价
+          goodsPrices: goodsPrices,
           goodsList,
         },
         "POST"
@@ -220,19 +221,19 @@ Page({
         if (res.errno === 0) {
           wx.removeStorageSync("orderId");
           wx.setStorageSync("addressId", 0);
-          const orderId = res.data.orderId;
+          const orderId = res.data;
           wx.showModal({
             title: "提示",
             content: "模拟付款",
             success: function (e) {
               if (e.confirm) {
                 // 已付款 模拟付款接口
-                // 这里调用 接口跟新状态 -- 3
+                // 这里调用 接口跟新状态 -- 1
                 util
                   .request(
                     api.OrderUpdataState,
                     {
-                      code: 3,
+                      orderState: 1,
                       orderId: orderId,
                     },
                     "POST"
@@ -247,12 +248,12 @@ Page({
                   });
               } else if (e.cancel) {
                 // 取消付款
-                // 这里调用 接口跟新状态 -- 2
+                // 这里调用 接口跟新状态 -- 0
                 util
                   .request(
                     api.OrderUpdataState,
                     {
-                      code: 2,
+                      orderState: 0,
                       orderId: orderId,
                     },
                     "POST"
