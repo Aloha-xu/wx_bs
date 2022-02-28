@@ -40,6 +40,7 @@ module.exports = {
   OrderDelete: ApiRootUrl + "order/delete", //订单删除 1
   // OrderCancel: ApiRootUrl + "order/cancel", //取消订单
   OrderConfirm: ApiRootUrl + "order/confirm", //确认订单1
+  OrderRefund: ApiRootUrl + "order/refund", //退货
   // OrderCount: ApiRootUrl + "order/count", // 获取订单数
   OrderCountInfo: ApiRootUrl + "order/orderCount", // 我的页面获取订单数状态
   // OrderExpressInfo: ApiRootUrl + "order/express", //物流信息

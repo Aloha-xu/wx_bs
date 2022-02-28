@@ -1,3 +1,7 @@
+var util = require("../../../utils/util.js");
+var api = require("../../../config/api.js");
+
+
 // pages/ucenter/refund.js
 Page({
   /**
@@ -12,6 +16,29 @@ Page({
     this.setData({
       refundReason,
     });
+  },
+
+  UpdataRefund(){
+    let that = this
+    let orderId = wx.getStorageSync('orderId')
+    let refundReason = this.data.refundReason
+    util.request(api.OrderRefund,{
+      orderId, 
+      refundReason
+    },
+    "post").then((res)=>{
+      res.errno == 0 && (wx.showToast({
+        title: '提交成功',
+      }),
+      that.setData({
+        refundReason :'',
+      }))
+
+      res.errno != 0 && wx.showToast({
+        title: '提交失败',
+      })
+      
+    })
   },
 
   /**
