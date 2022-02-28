@@ -1,0 +1,13 @@
+<view>
+        <view>
+            退款界面
+        </view>
+            <textarea class="" value="{{refundReason}}" placeholder="请输入退款理由："  placeholder-class="textarea-placeholder" bindinput="bindinputRefundReason"></textarea>
+
+
+            <button>
+                    提交
+            </button>
+              
+</view>
+  

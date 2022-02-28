@@ -38,11 +38,15 @@
 			<view class="addr-text">{{addressInfo.province + addressInfo.city + addressInfo.county + addressInfo.street + addressInfo.address}}</view>
 		</view>
 	</view>
+
+
+
 	<!-- 快递信息 -->
 	<view class="onPosting" wx:if="{{orderInfo.shipping_status && onPosting == 0}}">
 		<image class='loading' src='/images/icon/loading.gif'></image>
 		<view class='t'>快递信息查询中。。。</view>
 	</view>
+
 	<view wx:elif="{{orderInfo.shipping_status && onPosting == 1}}" class="express">
 		<view class='express-info-header'>
 			<view class="list-title" wx:if="{{express.traces.length == 0}}">物流信息</view>
@@ -72,7 +76,7 @@
 
 
 
-	<!-- 商品列表信息 -->
+	
 	<!-- <view class="goods-list" bindtap='toGoodsList'>
 		<view class='list-info-wrap'>
 			<view class="list-title">商品信息</view>
@@ -90,6 +94,9 @@
 		</view>
 	</view> -->
 
+
+
+<!-- 商品列表信息 -->
 	<view class='goods-list-container'>
 				<view class='goods-list-wrap' hover-class='none' wx:for="{{orderGoods}}" wx:key="id" wx:for-item="gitem">
 					<navigator hover-class='none' class='goods-nav' url='/pages/goods/goods?id={{gitem.goodsId}}'>
@@ -135,7 +142,6 @@
 			<view class="right-text price-to-pay">
 				¥{{orderInfo.freightPrice + orderInfo.goodsPrices}}
 			</view>
-			<view wx:if="{{orderInfo.change_price != orderInfo.actual_price }}" class='change-price'>(改价)</view>
 		</view>
 	</view>
 	<!-- 订单信息  订单编号： 创建时间：等等-->
@@ -169,22 +175,31 @@
 				<view class="row-label2">完成时间：</view>
 				<view class="right-text2">{{orederFinishTime}}</view>
 			</view>
+			<view wx:if="{{orederCloseTime}}" class="row-box2">
+				<view class="row-label2">关闭时间：</view>
+				<view class="right-text2">{{orederCloseTime}}</view>
+			</view>
 		</view>
 	</view>
 
 	<!-- botom底部 -->
-	<view class="bottom-fixed-box display-between" wx:if="{{handleOption.cancel && handleOption.pay}}">
-		<view class="to-cancel-btn" data-index="{{orderId}}" bindtap='cancelOrder'>取消订单</view>
+	<view class="bottom-fixed-box display-between" wx:if="{{orderInfo.code == 0 }}">
+		<view class="to-cancel-btn" data-index="{{orderInfo.orderId}}" bindtap='cancelOrder'>取消订单</view>
 		<button class="to-pay-btn" bindtap='payOrder'>继续支付</button>
 	</view>
+
 	<view wx:else class="bottom-fixed-box display-between">
 		<button class='call-service' session-from='{"nickName":"{{userInfo.nickname}}","avatarUrl":"{{userInfo.avatar}}"}' open-type="contact" show-message-card="true" hover-class="none">
             <image class="icon" src="/images/icon/contact.png"></image>
             <view class="text">联系客服</view>
         </button>
-		<view bindtap='deleteOrder' class="btn-default" wx:if="{{handleOption.delete}}">删除订单</view>
-		<view bindtap='confirmOrder' class='btn-red' wx:if="{{handleOption.confirm}}">确认收货</view>
-		<view class="btn-red" bindtap="reOrderAgain">再来一单</view>
+		<!-- 退货退款 -->
+		<view bindtap='refundOrder' class="btn-default" wx:if="{{orderInfo.code ==1 || orderInfo.code ==2 ||orderInfo.code ==3}}">退货退款</view>
+		<!-- 删除订单 是订单已经结束了 才可以删除 -->
+		<view bindtap='deleteOrder' class="btn-default" wx:if="{{orderInfo.code ==6 }}">删除订单</view>
+		<!--  待收货  才可以点击确认收货 把状态变成3-->
+		<view bindtap='confirmOrder' class='btn-red' wx:if="{{orderInfo.code == 2}}">确认收货</view>
+		<!-- <view class="btn-red" bindtap="reOrderAgain">再来一单</view> -->
 	</view>
 	
 </view>

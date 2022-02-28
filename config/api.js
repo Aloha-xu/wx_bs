@@ -36,17 +36,18 @@ module.exports = {
   OrderSubmit: ApiRootUrl + "order/submit", // 提交订单 1
   OrderUpdataState: ApiRootUrl + "order/updataState", // 改变订单状态接口 1
   OrderList: ApiRootUrl + "order/list", //订单列表
-  OrderDetail: ApiRootUrl + "order/detail", //订单详情 1 
-  // OrderDelete: ApiRootUrl + "order/delete", //订单删除
+  OrderDetail: ApiRootUrl + "order/detail", //订单详情 1
+  OrderDelete: ApiRootUrl + "order/delete", //订单删除 1
   // OrderCancel: ApiRootUrl + "order/cancel", //取消订单
-  // OrderConfirm: ApiRootUrl + "order/confirm", //物流详情
+  OrderConfirm: ApiRootUrl + "order/confirm", //确认订单1
   // OrderCount: ApiRootUrl + "order/count", // 获取订单数
   OrderCountInfo: ApiRootUrl + "order/orderCount", // 我的页面获取订单数状态
   // OrderExpressInfo: ApiRootUrl + "order/express", //物流信息
   // OrderGoods: ApiRootUrl + "order/orderGoods", // 获取checkout页面的商品列表
   // 足迹
-  FootprintList: ApiRootUrl + "footprint/list", //足迹列表
-  FootprintDelete: ApiRootUrl + "footprint/delete", //删除足迹
+  FootprintList: ApiRootUrl + "foot/list", //足迹列表
+  FootprintDelete: ApiRootUrl + "foot/del", //删除足迹
+  FootprintAdd: ApiRootUrl + "foot/add", //添加足迹
   // 搜索
   // SearchIndex: ApiRootUrl + "search/index", //搜索页面数据
   SearchHelper: ApiRootUrl + "search/helper", //搜索帮助
