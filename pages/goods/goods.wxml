@@ -18,7 +18,7 @@
         <block wx:if="{{gallery.length > 0}}">
             <swiper bindchange="bindchange" class="banner banner-style1" indicator-dots="{{false}}" autoplay="{{false}}" current="{{current}}" circular="{{true}}" interval="3000" duration="1000" display-multiple-items="1">
                 <swiper-item class="item" wx:for="{{gallery}}" wx:key="id">
-                    <image bindtap="previewImage" data-src="{{item.url}}" src="{{item.url}}" class="slide-image" mode="aspectFill" />
+                    <image bindtap="previewImage" data-src="{{item}}" src="{{item}}" class="slide-image" mode="aspectFill" />
                 </swiper-item>
             </swiper>
         </block>
@@ -54,15 +54,9 @@
             <view class='sales'>已售{{goods.sellVolume}}份</view>
         </view>
     </view>
-    <!-- 商品规格  -->
-    <!-- <view class='section-nav' bindtap="switchAttrPop">
-        <view class="t">{{checkedSpecText}}</view>
-        <view class="arrow"></view>
-    </view> -->
     <!-- 商品详细介绍 -->
     <view class='details-wrap'>
         <view class="title">商品详情</view>
-        <!-- <ad unit-id="adunit-2d961509e15e91d7" ad-type="grid" grid-opacity="0.8" grid-count="5" ad-theme="white"></ad> -->
         <view class="show">
             <view class='details-image-wrap'>
                 <import src="../../lib/wxParse/wxParse.wxml" />
@@ -70,54 +64,6 @@
             </view>
         </view>
     </view>
-    <!-- 规格弹出框 -->
-    <!-- <view class="attr-pop-box" hidden="{{!openAttr}}" bindtap='closeAttr'>
-        <view class="attr-pop" catchtap="handleTap">
-            <view class="close" catchtap="closeAttr">
-                <image class="icon" src="/images/icon/icon-close.png"></image>
-            </view>
-            <view class="img-info">
-                <view class="img-wrap">
-                    <image class="img" src="{{gallery[0].img_url}}"></image>
-                </view>
-                <view class="info">
-                    <view class='price-range' wx:if="{{priceChecked == false}}">
-                        <view class='retail-price'>
-                            <view class='p-title'>零售价：</view>
-                            <view class='g-price'>{{goods.retail_price}}元</view>
-                        </view>
-                    </view>
-                    <view class='price-range' wx:elif="{{priceChecked == true}}">
-                        <view class='retail-price'>
-                            <view class='p-title'>零售价：</view>
-                            <view class='g-price'>{{checkedSpecPrice}}元</view>
-                        </view>
-                    </view>
-                    <view class="a" wx:if="{{productList.length>0}}">{{tmpSpecText}}</view>
-                </view>
-            </view>
-            <view class="spec-con">
-                <view class='spec-item'>
-                    <view class='name'>{{specificationList.name}}</view>
-                    <view class="values">
-                        <view class="value {{item.checked ? 'selected' : ''}} {{item.goodsNumber <=0?'out-stock':''}}" bindtap="clickSkuValue" wx:for="{{specificationList.valueList}}" wx:key="id" data-value-id="{{item.id}}" data-index="{{index}}" data-name-id="{{item.specification_id}}">{{item.value}}</view>
-                    </view>
-                </view>
-                <view class="number-item">
-                    <view class="name">库存</view>
-                    <view class='stock-num'>{{goodsNumber}}</view>
-                </view>
-                <view class="number-item">
-                    <view class="name">数量 ({{goods.goods_unit}})</view>
-                    <view class="selnum">
-                        <button class="cut" bindtap="cutNumber">-</button>
-                        <input value="{{number}}" class="number" type="number" cursor-spacing="100" bindblur="inputNumber" />
-                        <button class="add" bindtap="addNumber" disabled='{{disabled}}'>+</button>
-                    </view>
-                </view>
-            </view>
-        </view>
-    </view> -->
     <view class="cart-add-box">
         <view class='l'>
             <view class='left-icon form-button' bindtap='goIndexPage'>
@@ -141,14 +87,6 @@
         <block wx:if="{{goods.inventory > 0 && goods.state == 1}}">
                 <view class="to-cart-btn" bindtap='addToCart'>加入购物车</view>
                 <view class="to-pay-btn" bindtap='fastToCart'>立即购买</view>
-            <!-- <block wx:if="{{goodsNumber > 0}}">
-                <view class="to-cart-btn" bindtap='addToCart'>加入购物车</view>
-                <view class="to-pay-btn" bindtap='fastToCart'>立即购买</view>
-
-            </block> -->
-            <!-- <block wx:if="{{goodsNumber <= 0 }}">
-                <view class="cart-empty">商品已售罄</view>
-            </block> -->
         </block>
         <block wx:elif="{{goods.inventory <= 0}}">
             <view class="cart-empty">商品已售罄</view>

@@ -10,7 +10,7 @@
     <view class="catalog">
         <!-- 左边导航栏 -->
         <scroll-view class="nav" scroll-y="true">
-            <view class="item {{ nowId == 0 ?'active' : ''}}" bindtap="switchCate" data-id="0">全部</view>
+            <!-- <view class="item {{ nowId == 0 ?'active' : ''}}" bindtap="switchCate" data-id="0">全部</view> -->
             <view class="item {{ nowId == item.cateId?'active' : ''}}" wx:for="{{navList}}" wx:key="id" data-id="{{item.cateId}}" bindtap="switchCate">{{item.name}}</view>
         </scroll-view>
         <!-- 具体商品列表 -->

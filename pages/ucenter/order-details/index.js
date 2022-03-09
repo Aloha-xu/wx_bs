@@ -174,14 +174,14 @@ Page({
             // textCode: res.data.textCode,
             addressInfo: res.data.addressInfo,
             // goodsCount: res.data.goodsCount
-            orderCreateTime: util.rTime(orderInfo.createTime),
-            orderPayTime: orderInfo.payTime && util.rTime(orderInfo.payTime),
+            orderCreateTime:orderInfo.createTime,
+            orderPayTime: orderInfo.payTime && orderInfo.payTime,
             orederShipTime:
-              orderInfo.shipTime && util.rTime(orderInfo.shipTime),
+              orderInfo.shipTime && orderInfo.shipTime,
             orederFinishTime:
-              orderInfo.finishTime && util.rTime(orderInfo.finishTime),
+              orderInfo.finishTime && orderInfo.finishTime,
             orederCloseTime:
-              orderInfo.closeTime && util.rTime(orderInfo.closeTime),
+              orderInfo.closeTime && orderInfo.closeTime,
           });
           let code = orderInfo.code;
           //这应该是快递到买家手中 等待收货 就是待确认收货的时间  点击完确认收货 订单就到了关闭时间

@@ -46,7 +46,6 @@ App({
                 that.globalData.hh = hh;
             }
         });
-
     },
     globalData: {
         userInfo: {

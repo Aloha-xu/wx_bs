@@ -85,14 +85,14 @@ Page({
         wx.stopPullDownRefresh() //停止下拉刷新
     },
     getOrderInfo: function(e) {
-        let that = this;
-        util.request(api.OrderCountInfo).then(function(res) {
-            if (res.errno === 0) {
-                let status = res.data;
-                that.setData({
-                    status: status
-                });
-            }
-        });
+        // let that = this;
+        // util.request(api.OrderCountInfo).then(function(res) {
+        //     if (res.errno === 0) {
+        //         let status = res.data;
+        //         that.setData({
+        //             status: status
+        //         });
+        //     }
+        // });
     },
 })

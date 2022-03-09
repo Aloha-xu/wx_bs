@@ -305,7 +305,7 @@ page {
 }
 
 .company .c-wrap {
-    width: 30%;
+    width: 40%;
     position: relative;
     height: 80rpx;
     line-height: 80rpx;

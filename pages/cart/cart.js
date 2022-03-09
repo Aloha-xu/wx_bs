@@ -26,7 +26,7 @@ Page({
     //判断购物车有无商品
     hasCartGoods: 0,
   },
-  onLoad: function () { },
+  onLoad: function () {},
   onReady: function () {
     // 页面渲染完成
   },
@@ -44,7 +44,7 @@ Page({
       url: "/pages/goods/goods?id=" + goodsId,
     });
   },
-  nothing: function () { },
+  nothing: function () {},
   onPullDownRefresh: function () {
     wx.showNavigationBarLoading();
     this.getCartList();
@@ -256,27 +256,28 @@ Page({
 
   //获取购物车数量
   getCartNum: function () {
-    util.request(api.CartGoodsCount, {}, "post").then(function (res) {
-      if (res.errno === 0) {
-        let cartGoodsCount = "";
-        if (res.data.cartTotal.goodsCount == 0) {
-          wx.removeTabBarBadge({
-            index: 2,
-          });
-        } else {
-          cartGoodsCount = res.data.cartTotal.goodsCount + "";
-          wx.setTabBarBadge({
-            index: 2,
-            text: cartGoodsCount,
-          });
-        }
-      }
-    });
+    // util.request(api.CartGoodsCount, {}, "post").then(function (res) {
+    //   if (res.errno === 0) {
+    //     let cartGoodsCount = "";
+    //     if (res.data.cartTotal.goodsCount == 0) {
+    //       wx.removeTabBarBadge({
+    //         index: 2,
+    //       });
+    //     } else {
+    //       cartGoodsCount = res.data.cartTotal.goodsCount + "";
+    //       wx.setTabBarBadge({
+    //         index: 2,
+    //         text: cartGoodsCount,
+    //       });
+    //     }
+    //   }
+    // });
+    util.getCartNum();
   },
 
   //去到确认订单页面
   checkoutOrder: function () {
-    wx.removeStorageSync("cartInfo")
+    wx.removeStorageSync("cartInfo");
     //获取已选择的商品
     util.loginNow();
     //赛选出 选择的了商品

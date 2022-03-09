@@ -122,17 +122,17 @@ Page({
                 // let count = res.data.count;
 
                 //转换
-                let orderlist =res.data
-                orderlist.map(i => {
-                    i.createTime = util.rTime(i.createTime)
-                });
+                // let orderlist =res.data
+                // orderlist.map(i => {
+                //     i.createTime = util.rTime(i.createTime)
+                // });
 
 
                 that.setData({
                     // allCount: count,
                     // allOrderList: that.data.allOrderList.concat(res.data.data),
                     // allPage: res.data.currentPage,
-                    orderList: orderlist
+                    orderList: res.data
                 });
                 // let hasOrderData = that.data.allOrderList.concat(res.data.data);
                 // if (count == 0) {

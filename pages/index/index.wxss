@@ -428,7 +428,7 @@
     width: 100%;
     height: 100rpx;
     border-radius: 8rpx;
-    background: #f9f9f9;
+    background: #ececec;
     display: flex;
     flex-direction: column;
     justify-content: center;
