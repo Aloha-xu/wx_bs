@@ -31,12 +31,11 @@ Page({
             success: function (e) {
               if (e.confirm) {
                 // 已付款 模拟付款接口
-                // 这里调用 接口跟新状态 -- 3
                 util
                   .request(
                     api.OrderUpdataState,
                     {
-                      orderState: 3,
+                      orderState: 1,
                       orderId: orderId,
                     },
                     "POST"
@@ -51,12 +50,11 @@ Page({
                   });
               } else if (e.cancel) {
                 // 取消付款
-                // 这里调用 接口跟新状态 -- 2
                 util
                   .request(
                     api.OrderUpdataState,
                     {
-                      orderState: 2,
+                      orderState: 0,
                       orderId: orderId,
                     },
                     "POST"

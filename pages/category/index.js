@@ -80,12 +80,14 @@ Page({
     //拿到分类列表
     this.getCatalog();
     //cateid 默认是1 - 全部
-    let id = this.data.nowId;
+    let id ;
     //这个是在其他页面传过来的cateId  可能为空的
     let nowId = wx.getStorageSync("categoryId");
-
-    if (id == nowId) return;
-    nowId && (id = nowId);
+    if(nowId == ''){
+      id = this.data.nowId;
+    }else{
+      id = nowId
+    }
     this.setData({
       list: [],
       allPage: 1,

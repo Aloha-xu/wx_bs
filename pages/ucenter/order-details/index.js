@@ -190,11 +190,11 @@ Page({
             // let confirm_remainTime = res.data.orderInfo.finishTime;
             // remaintimer.reTime(confirm_remainTime, 'c_remainTime', that);
             //商家发货了 15天后自动收货
-            endTime = +res.data.orderInfo.shipTime + 24 * 60 * 60 * 15;
+            endTime = new Date(res.data.orderInfo.shipTime).getTime() + 24 * 60 * 60 * 15;
             wxTimer(endTime * 1000, that, 1000 * 60);
           }
           if (code == 0) {
-            endTime = +res.data.orderInfo.createTime + 24 * 60 * 60;
+            endTime = new Date(res.data.orderInfo.createTime).getTime() + 24 * 60 * 60;
             wxTimer(endTime * 1000, that, 1000);
           }
         }

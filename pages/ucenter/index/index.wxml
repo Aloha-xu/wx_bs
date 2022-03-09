@@ -8,7 +8,7 @@
                 <view class='btn-login'>点我登录</view>
             </view>
         </view>
-        <view class='head-wrap' wx:else bindtap='goProfile'>
+        <view class='head-wrap' wx:else >
             <view class="head-l">
                 <view class='l'>
                     <image class='avatar' src="{{userInfo.avatarUrl}}"></image>
@@ -19,12 +19,11 @@
                     </view>
                 </view>
             </view>
-            <view class="head-r">
+            <!-- <view class="head-r">
                 <view class="arrow"></view>
-            </view>
+            </view> -->
         </view>
     </view>
-    <!-- <ad unit-id="adunit-89ae0a0b6860dc9f" ad-type="grid" grid-opacity="0.8" grid-count="5" ad-theme="white"></ad> -->
     <view class="order-container">
         <view class='header' data-index='7' bindtap='toOrderListTap'>
             <view class='top-title'>
