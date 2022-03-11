@@ -190,12 +190,14 @@ Page({
             // let confirm_remainTime = res.data.orderInfo.finishTime;
             // remaintimer.reTime(confirm_remainTime, 'c_remainTime', that);
             //商家发货了 15天后自动收货
-            endTime = new Date(res.data.orderInfo.shipTime).getTime() + 24 * 60 * 60 * 15;
-            wxTimer(endTime * 1000, that, 1000 * 60);
+            endTime = new Date(res.data.orderInfo.shipTime).getTime() + 24 * 60 * 60 * 15 * 1000;
+            wxTimer(endTime , that, 1000 * 60);
           }
           if (code == 0) {
-            endTime = new Date(res.data.orderInfo.createTime).getTime() + 24 * 60 * 60;
-            wxTimer(endTime * 1000, that, 1000);
+            endTime = new Date(res.data.orderInfo.createTime).getTime() + 24 * 60 * 60 * 1000;
+            wxTimer(endTime , that, 1000);
+            //超过的24小时没有给钱 就自动的取消订单了 即countdown 的 day hour minute second -- 00
+            
           }
         }
       });
@@ -304,16 +306,7 @@ Page({
                 wx.showToast({
                   title: "取消订单成功",
                 });
-                that.setData({
-                  orderList: [],
-                  //   allOrderList: [],
-                  //   allPage: 1,
-                  //   allCount: 0,
-                  //   size: 8,
-                });
                 wx.setStorageSync("doRefresh", 1);
-                // let orderTimerID = that.data.wxTimerList.orderTimer.wxIntId;
-                // clearInterval(orderTimerID);
                 that.getOrderDetail();
               } else {
                 util.showErrorToast(res.msg);
