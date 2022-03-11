@@ -75,20 +75,9 @@ Page({
                     banner: res.data.banner,
                     loading: 1,
                 });
-                let cartGoodsCount = '';
-                if (res.data.cartCount == 0) {
-                    wx.removeTabBarBadge({
-                        index: 2,
-                    })
-                } else {
-                    cartGoodsCount = res.data.cartCount + '';
-                    wx.setTabBarBadge({
-                        index: 2,
-                        text: cartGoodsCount
-                    })
-                }
             }
         });
+        util.getCartNum();
     },
     onLoad: function (options) {
         // this.getChannelShowInfo();
