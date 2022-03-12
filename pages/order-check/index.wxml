@@ -2,7 +2,7 @@
 	<view class='wrap'>
 		<view class="address-box">
 			<view class="receive-title">收件人</view>
-			<view class='add-address' bindtap="toSelectAddress" wx:if="{{checkedAddress.id > 0}}">
+			<view class='add-address' bindtap="toSelectAddress" wx:if="{{checkedAddress.addressId > 0}}">
 				<image class="addr-icon" src="/images/icon/location.png"></image>
 				<view class="addr-r">
 					<view class="show-address">
@@ -10,7 +10,7 @@
 							<view wx:if="{{checkedAddress.isDefault}}" class='default-address'>默认</view>
 							{{checkedAddress.name}} {{checkedAddress.tel}}
 						</view>
-						<view class="addr-text">{{checkedAddress.province + checkedAddress.city + checkedAddress.county + checkedAddress.street + checkedAddress.address}}</view>
+						<view class="addr-text">{{checkedAddress.province + checkedAddress.city + checkedAddress.county + checkedAddress.street + checkedAddress.street}}</view>
 					</view>
 					<view class="arrow"></view>
 				</view>
