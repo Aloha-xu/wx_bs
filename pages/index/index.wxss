@@ -428,7 +428,7 @@
     width: 100%;
     height: 100rpx;
     border-radius: 8rpx;
-    background: #ececec;
+    background: linear-gradient(to right, #ebebeb2f, #8f8f8f70);
     display: flex;
     flex-direction: column;
     justify-content: center;

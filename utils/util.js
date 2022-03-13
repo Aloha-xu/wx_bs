@@ -161,17 +161,17 @@ function sentRes(url, data, method, fn) {
 
 // 判断有没有登陆 没有登录就跳转到登陆那里
 function loginNow() {
-  // let userInfo = wx.getStorageSync('userInfo');
-  // if (userInfo == '') {
-  //     wx.navigateTo({
-  //         url: '/pages/app-auth/index',
-  //     });
-  //     return false;
-  // } else {
-  //     return true;
-  // }
-  //暂时测试 直接返回true
-  return true;
+  let userInfo = wx.getStorageSync('userInfo');
+  if (userInfo == '') {
+      wx.navigateTo({
+          url: '/pages/app-auth/index',
+      });
+      return false;
+  } else {
+      return true;
+  }
+  // //暂时测试 直接返回true
+  // return true;
 }
 
 //获取年月日小时分钟秒

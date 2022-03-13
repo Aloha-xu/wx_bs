@@ -39,7 +39,7 @@ page {
 
 .to-index-btn {
     color: #fff;
-    background: linear-gradient(to right, #ff3456, #ff347d);
+    background: linear-gradient(to right, #ff3456, #b18293);
     border-radius: 10rpx;
     width: 400rpx;
     height: 90rpx;
