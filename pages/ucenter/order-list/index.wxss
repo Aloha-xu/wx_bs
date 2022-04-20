@@ -385,3 +385,11 @@ page {
     color: #999;
     line-height: 50rpx;
 }
+
+
+.order-number{
+    font-size: 26rpx;
+    color: #666;
+    margin-left: 25rpx;
+    margin-top: 25rpx;
+}

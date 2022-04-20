@@ -35,7 +35,7 @@
 		<image class="addr-icon" src="/images/icon/location.png"></image>
 		<view class="show-address">
 			<view class="name-tel">{{addressInfo.name}} {{addressInfo.tel}}</view>
-			<view class="addr-text">{{addressInfo.province + addressInfo.city + addressInfo.county + addressInfo.street + addressInfo.street}}</view>
+			<view class="addr-text">{{addressInfo.province + addressInfo.city + addressInfo.county + addressInfo.street}}</view>
 		</view>
 	</view>
 

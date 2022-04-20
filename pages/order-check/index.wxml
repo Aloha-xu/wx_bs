@@ -10,7 +10,7 @@
 							<view wx:if="{{checkedAddress.isDefault}}" class='default-address'>默认</view>
 							{{checkedAddress.name}} {{checkedAddress.tel}}
 						</view>
-						<view class="addr-text">{{checkedAddress.province + checkedAddress.city + checkedAddress.county + checkedAddress.street + checkedAddress.street}}</view>
+						<view class="addr-text">{{checkedAddress.province + checkedAddress.city + checkedAddress.county + checkedAddress.street}}</view>
 					</view>
 					<view class="arrow"></view>
 				</view>

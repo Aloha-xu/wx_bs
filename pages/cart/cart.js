@@ -190,10 +190,7 @@ Page({
   //加减商品数量
   updateCart: function (itemIndex, goodsId, number, cartId) {
     let that = this;
-    wx.showLoading({
-      title: "",
-      mask: true,
-    });
+   
     util
       .request(
         api.CartUpdate,
@@ -224,7 +221,6 @@ Page({
         that.setData({
           checkedAllStatus: that.isCheckedAll(),
         });
-        wx.hideLoading({});
       });
   },
 
